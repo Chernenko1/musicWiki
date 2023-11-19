@@ -1,15 +1,15 @@
 import React from "react";
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { authRoutes, unAuthRoutes } from "../routes";
-import { Admin } from "../pages/Admin";
 import { NoPage } from "../pages/NoPage";
+import { useAppSelector } from "../store/hooks";
 
 export const AppRouter = () => {
-  const isAdmin: boolean = false;
+  const isAuth = useAppSelector((state) => state.user.isAuth);
 
   return (
     <Routes>
-      {isAdmin &&
+      {isAuth &&
         authRoutes.map(({ path, Component }) => (
           <Route path={path} element={<Component />} />
         ))}

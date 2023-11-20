@@ -6,7 +6,7 @@ export const Admin = () => {
   return (
     <Container
       minH={window.innerHeight}
-      minW={window.innerWidth}
+      minW={window.innerWidth - 15}
       bg="green.400"
       color="#262626"
     >

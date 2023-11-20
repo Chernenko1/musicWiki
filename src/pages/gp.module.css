@@ -1,0 +1,19 @@
+.container {
+  background-color: antiquewhite;
+  padding: 10px 50px;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.g_desc {
+  max-width: 60vw;
+}
+
+.g_table {
+  margin-top: 20px;
+}

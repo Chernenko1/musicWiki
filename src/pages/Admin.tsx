@@ -4,13 +4,14 @@ import { GroupsList } from "../components/GroupsList";
 
 export const Admin = () => {
   return (
-    <Container
-      minH={window.innerHeight}
-      minW={window.innerWidth - 15}
-      bg="green.400"
-      color="#262626"
+    <div
+      style={{
+        display: "flex",
+
+        backgroundColor: "lightgreen",
+      }}
     >
       <GroupsList />
-    </Container>
+    </div>
   );
 };

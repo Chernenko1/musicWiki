@@ -24,7 +24,7 @@ interface Props {
 
 export const GroupItem: React.FC<Props> = ({ id, title, describe }) => {
   return (
-    <Card maxW="250px" bg="lightgray">
+    <Card maxW="280px" bg="lightgray" key={id + id}>
       <CardBody>
         <Image
           src="https://infosmi.net/wp-content/uploads/2022/02/96109038.jpg"

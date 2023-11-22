@@ -2,13 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 interface GroupsState {
-  groupsData: any;
-  groupData: any;
+  groupsData: [];
 }
 
 const initialState: GroupsState = {
   groupsData: [],
-  groupData: [],
 };
 
 export const groupsSlice = createSlice({
@@ -18,13 +16,10 @@ export const groupsSlice = createSlice({
     setGroups(state, action) {
       state.groupsData = action.payload;
     },
-    setGroup(state, action) {
-      state.groupData = action.payload;
-    },
   },
 });
 
-export const { setGroup, setGroups } = groupsSlice.actions;
+export const { setGroups } = groupsSlice.actions;
 
 export const selectGroup = (state: RootState) => state.groups;
 

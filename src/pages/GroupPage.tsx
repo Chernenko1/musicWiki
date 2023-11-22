@@ -2,22 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./gp.module.css";
 import { Box, Image, Text } from "@chakra-ui/react";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { GroupTable } from "../components/GroupTable";
 import { fetchOneGroup } from "../http/groupAPI";
-import { setGroup } from "../store/slices/groupSlice";
 
 export const GroupPage = () => {
   const { id } = useParams();
-  const { group } = useAppSelector((state) => state.groups.groupData);
-  const dispatch = useAppDispatch();
-  // const [group, setGroup] = useState({info:[]})
+  const [group, setGroup] = useState({ group_name: "", description: "" });
 
   useEffect(() => {
-    fetchOneGroup(id).then((data) => dispatch(setGroup(data)));
+    fetchOneGroup(id).then((data) => setGroup(data.group));
   }, []);
 
-  console.log(group);
   return (
     <Box className={styles.container}>
       <Box style={{}}>

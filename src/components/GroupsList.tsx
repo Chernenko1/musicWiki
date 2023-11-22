@@ -14,10 +14,10 @@ export const GroupsList = () => {
   }, []);
 
   // console.log(groups);
-  if (groups.length < 1) {
-    console.log(1);
-    return <Spinner />;
-  }
+  // if (groups.length < 1) {
+  //   console.log(1);
+  //   return <Spinner />;
+  // }
 
   return (
     <div

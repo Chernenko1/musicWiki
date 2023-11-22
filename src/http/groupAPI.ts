@@ -3,6 +3,7 @@ import { $authHost, $host } from "./index";
 import { jwtDecode } from "jwt-decode";
 
 export const createGroup = async (group: any) => {
+  console.log(group);
   const { data } = await $authHost.post("api/group", group);
   return data;
 };

@@ -1,5 +1,6 @@
 import {
   ADMIN_ROUTE,
+  CREATE_ROUTE,
   GROUP_ROUTE,
   LOGIN_ROUTE,
   REG_ROUTE,
@@ -7,6 +8,7 @@ import {
 import { Admin } from "./pages/Admin";
 import { Auth } from "./pages/Auth";
 import { GroupPage } from "./pages/GroupPage";
+import { Create } from "./pages/Create";
 
 export const authRoutes = [
   {
@@ -16,6 +18,10 @@ export const authRoutes = [
   {
     path: GROUP_ROUTE + "/:id",
     Component: GroupPage,
+  },
+  {
+    path: CREATE_ROUTE,
+    Component: Create,
   },
 ];
 

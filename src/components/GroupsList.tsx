@@ -10,7 +10,9 @@ export const GroupsList = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    fetchGroups().then((data) => dispatch(setGroups(data.groups.rows)));
+    fetchGroups().then((data) => {
+      dispatch(setGroups(data.groups.rows));
+    });
   }, []);
 
   // console.log(groups);

@@ -33,7 +33,10 @@ export const NavBar = () => {
       borderBottomWidth={1}
     >
       <Box p="2">
-        <Heading size="md">Adminpanel</Heading>
+        <Link to={ADMIN_ROUTE}>
+          {" "}
+          <Heading size="md">Adminpanel</Heading>
+        </Link>
       </Box>
       <Spacer />
       <ButtonGroup gap="2">

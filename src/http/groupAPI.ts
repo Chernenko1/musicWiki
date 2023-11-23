@@ -8,6 +8,7 @@ export const createGroup = async (group: any) => {
   return data;
 };
 
+//ID - album and other
 export const fetchGroups = async () => {
   const { data } = await $authHost.get("api/group");
   return data;

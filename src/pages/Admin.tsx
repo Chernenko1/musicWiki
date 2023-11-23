@@ -7,11 +7,10 @@ export const Admin = () => {
     <div
       style={{
         display: "flex",
-
-        backgroundColor: "lightgreen",
       }}
     >
       <GroupsList />
+      {/* <Pages /> */}
     </div>
   );
 };

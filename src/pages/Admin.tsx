@@ -1,19 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { GroupsList } from "../components/GroupsList";
 import { useAppDispatch } from "../store/hooks";
-import { setGroups, setMusicStyle } from "../store/slices/groupSlice";
+import { setGroups } from "../store/slices/groupSlice";
 import { fetchGroups } from "../http/groupAPI";
-import { fetchMusicS } from "../http/musicStyleAPI";
 
 export const Admin = () => {
+  const [render, setRender] = useState(0);
+
   const dispatch = useAppDispatch();
+
+  const handleChildClick = () => {
+    setRender((prev) => prev + 1);
+  };
 
   useEffect(() => {
     fetchGroups().then((data) => {
       dispatch(setGroups(data.groups.rows));
     });
-    fetchMusicS().then((data) => dispatch(setMusicStyle(data.musicStyle)));
-  }, []);
+  }, [render]);
 
   return (
     <div
@@ -21,7 +25,7 @@ export const Admin = () => {
         display: "flex",
       }}
     >
-      <GroupsList />
+      <GroupsList onChildeClick={handleChildClick} />
       {/* <Pages /> */}
     </div>
   );

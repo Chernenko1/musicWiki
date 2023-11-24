@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import { useAppSelector } from "../store/hooks";
 import { GroupItem } from "./GroupItem";
 
-export const GroupsList = () => {
+interface Props {
+  onChildeClick: any;
+}
+
+export const GroupsList: React.FC<Props> = ({ onChildeClick }) => {
   const groups = useAppSelector((state) => state.groups.groupsData);
   // const dispatch = useAppDispatch();
 
@@ -30,6 +34,7 @@ export const GroupsList = () => {
             describe={itm.description}
             title={itm.group_name}
             image=""
+            onChildeClick={onChildeClick}
           />
         </div>
       ))}

@@ -8,9 +8,12 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { CreateGroup } from "../components/modals/CreateGroup";
+import { useAppSelector } from "../store/hooks";
 
 export const Create = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const b = useAppSelector((state) => state.groups.musicStyleData);
+  console.log(b);
 
   return (
     <Container>

@@ -17,8 +17,11 @@ import {
   Stack,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createGroup } from "../../http/groupAPI";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { fetchMusicS } from "../../http/musicStyleAPI";
+import { setMusicStyle } from "../../store/slices/groupSlice";
 
 interface Props {
   isOpen: boolean;
@@ -33,8 +36,16 @@ export const CreateGroup: React.FC<Props> = ({ isOpen, onOpen, onClose }) => {
   const [groupName, setGroupName] = useState("");
   const [description, setDescription] = useState("");
   const [createYear, setCreateYear] = useState(0);
-  const [musicStyle, setMusicStyle] = useState("");
+  const [musicStyle, setMusicStyl] = useState("");
   const [city, setCity] = useState("");
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    fetchMusicS().then((data) => dispatch(setMusicStyle(data.musicStyle)));
+  }, []);
+
+  const musicS = useAppSelector((state) => state.groups.musicStyleData);
 
   const addGroup = () => {
     console.log(createYear);
@@ -95,11 +106,11 @@ export const CreateGroup: React.FC<Props> = ({ isOpen, onOpen, onClose }) => {
               />
             </FormControl>
 
-            <RadioGroup onChange={setMusicStyle} value={musicStyle} mt={4}>
+            <RadioGroup onChange={setMusicStyl} value={musicStyle} mt={4}>
               <Stack direction="column">
-                <Radio value="1">Рок</Radio>
-                <Radio value="2">Металл</Radio>
-                <Radio value="3">Поп</Radio>
+                {musicS.map((itm: any) => (
+                  <Radio value={String(itm.id)}>{itm.style_name}</Radio>
+                ))}
               </Stack>
             </RadioGroup>
 

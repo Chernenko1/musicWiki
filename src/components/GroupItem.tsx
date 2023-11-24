@@ -14,15 +14,26 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 import { GROUP_ROUTE } from "../utils/consts";
+import { destroyGroup } from "../http/groupAPI";
 
 interface Props {
   id: number;
   image: string;
   title: string;
   describe: string;
+  onChildeClick: any;
 }
 
-export const GroupItem: React.FC<Props> = ({ id, title, describe }) => {
+export const GroupItem: React.FC<Props> = ({
+  id,
+  title,
+  describe,
+  onChildeClick,
+}) => {
+  const handleClick = () => {
+    destroyGroup({ id });
+    onChildeClick();
+  };
   return (
     <Card maxW="280px" bg="lightgray" key={id + id}>
       <CardBody>
@@ -45,7 +56,7 @@ export const GroupItem: React.FC<Props> = ({ id, title, describe }) => {
             </Button>
           </Link>
 
-          <Button variant="ghost" colorScheme="red">
+          <Button variant="ghost" colorScheme="red" onClick={handleClick}>
             Удалить
           </Button>
         </ButtonGroup>

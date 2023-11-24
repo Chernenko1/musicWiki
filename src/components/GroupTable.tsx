@@ -13,18 +13,10 @@ import {
 import React from "react";
 
 interface Props {
-  obj: {};
+  arr: [];
 }
 
-export const GroupTable: React.FC<Props> = ({ obj }) => {
-  let head: string[] = [];
-  let body: any[] = [];
-
-  for (let [key, value] of Object.entries(obj)) {
-    head.push(key);
-    body.push(value);
-  }
-
+export const GroupTable: React.FC<Props> = ({ arr }) => {
   return (
     <Box>
       <TableContainer>
@@ -32,22 +24,22 @@ export const GroupTable: React.FC<Props> = ({ obj }) => {
           <TableCaption>Описание таблицы</TableCaption>
           <Thead>
             <Tr>
-              {head.map((itm) => (
-                <Th>{itm}</Th>
+              {arr.map((itm: any) => (
+                <Th>{itm.album_name}</Th>
               ))}
             </Tr>
           </Thead>
           <Tbody>
             <Tr>
-              {body.map((itm) => (
-                <Td>{itm}</Td>
+              {arr.map((itm: any) => (
+                <Td>{itm.release_year}</Td>
               ))}
             </Tr>
           </Tbody>
           <Tfoot>
             <Tr>
-              {head.map((itm) => (
-                <Th>{itm}</Th>
+              {arr.map((itm: any) => (
+                <Th>{itm.description}</Th>
               ))}
             </Tr>
           </Tfoot>

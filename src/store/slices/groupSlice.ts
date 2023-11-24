@@ -3,10 +3,12 @@ import { RootState } from "../store";
 
 interface GroupsState {
   groupsData: [];
+  musicStyleData: {};
 }
 
 const initialState: GroupsState = {
   groupsData: [],
+  musicStyleData: {},
 };
 
 export const groupsSlice = createSlice({
@@ -16,10 +18,13 @@ export const groupsSlice = createSlice({
     setGroups(state, action) {
       state.groupsData = action.payload;
     },
+    setMusicStyle(state, action) {
+      state.musicStyleData = action.payload;
+    },
   },
 });
 
-export const { setGroups } = groupsSlice.actions;
+export const { setGroups, setMusicStyle } = groupsSlice.actions;
 
 export const selectGroup = (state: RootState) => state.groups;
 

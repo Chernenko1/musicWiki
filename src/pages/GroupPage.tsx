@@ -4,13 +4,17 @@ import styles from "./gp.module.css";
 import { Box, Image, Text } from "@chakra-ui/react";
 import { GroupTable } from "../components/GroupTable";
 import { fetchOneGroup } from "../http/groupAPI";
+import { fetchAlbums } from "../http/albumAPI";
+import { AlbumTable } from "../components/Tables/AlbumTables";
 
 export const GroupPage = () => {
   const { id } = useParams();
   const [group, setGroup] = useState({ group_name: "", description: "" });
+  const [albums, setAlbums] = useState<[]>([]);
 
   useEffect(() => {
     fetchOneGroup(id).then((data) => setGroup(data.group));
+    fetchAlbums(id).then((data) => setAlbums(data.album));
   }, []);
 
   return (
@@ -28,9 +32,9 @@ export const GroupPage = () => {
             <Text>{group.description}</Text>
           </Box>
         </Box>
-        {/* <Box className={styles.g_table}>
-          <GroupTable obj={group.bandmembersData[0]} />
-        </Box> */}
+        <Box className={styles.g_table}>
+          <AlbumTable arr={albums} />
+        </Box>
       </Box>
     </Box>
   );

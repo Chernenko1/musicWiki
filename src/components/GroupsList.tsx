@@ -1,19 +1,10 @@
 import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppSelector } from "../store/hooks";
 import { GroupItem } from "./GroupItem";
-import { fetchGroups } from "../http/groupAPI";
-import { setGroups } from "../store/slices/groupSlice";
-import { Spinner } from "@chakra-ui/react";
 
 export const GroupsList = () => {
   const groups = useAppSelector((state) => state.groups.groupsData);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    fetchGroups().then((data) => {
-      dispatch(setGroups(data.groups.rows));
-    });
-  }, []);
+  // const dispatch = useAppDispatch();
 
   // console.log(groups);
   // if (groups.length < 1) {

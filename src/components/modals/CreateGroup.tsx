@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   FormControl,
   FormLabel,
@@ -13,7 +12,6 @@ import {
   ModalOverlay,
   Radio,
   RadioGroup,
-  Select,
   Stack,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -25,11 +23,10 @@ import { setMusicStyle } from "../../store/slices/groupSlice";
 
 interface Props {
   isOpen: boolean;
-  onOpen: () => void;
   onClose: () => void;
 }
 
-export const CreateGroup: React.FC<Props> = ({ isOpen, onOpen, onClose }) => {
+export const CreateGroup: React.FC<Props> = ({ isOpen, onClose }) => {
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
 
@@ -39,16 +36,9 @@ export const CreateGroup: React.FC<Props> = ({ isOpen, onOpen, onClose }) => {
   const [musicStyle, setMusicStyl] = useState("");
   const [city, setCity] = useState("");
 
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    fetchMusicS().then((data) => dispatch(setMusicStyle(data.musicStyle)));
-  }, []);
-
   const musicS = useAppSelector((state) => state.groups.musicStyleData);
 
   const addGroup = () => {
-    console.log(createYear);
     createGroup({
       group_name: groupName,
       creation_year: createYear,
@@ -64,7 +54,6 @@ export const CreateGroup: React.FC<Props> = ({ isOpen, onOpen, onClose }) => {
       onClose();
     });
   };
-
   return (
     <>
       <Modal

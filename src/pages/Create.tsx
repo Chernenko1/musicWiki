@@ -6,14 +6,26 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { CreateGroup } from "../components/modals/CreateGroup";
-import { useAppSelector } from "../store/hooks";
+import { CreateAlbum } from "../components/modals/CreateAlbum";
+import { fetchGroups } from "../http/groupAPI";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { setGroups, setMusicStyle } from "../store/slices/groupSlice";
+import { fetchMusicS } from "../http/musicStyleAPI";
 
 export const Create = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const b = useAppSelector((state) => state.groups.musicStyleData);
-  console.log(b);
+  const [groupVisible, setGroupVisible] = useState(false);
+  const [albumVisible, setAlbumVisible] = useState(false);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    fetchGroups().then((data) => {
+      dispatch(setGroups(data.groups.rows));
+    });
+    fetchMusicS().then((data) => dispatch(setMusicStyle(data.musicStyle)));
+  }, []);
 
   return (
     <Container>
@@ -26,7 +38,7 @@ export const Create = () => {
           justifyContent={"center"}
           marginTop={10}
           cursor={"pointer"}
-          onClick={onOpen}
+          onClick={() => setGroupVisible(true)}
         >
           <Text>Создать новую группу</Text>
         </Box>
@@ -39,11 +51,19 @@ export const Create = () => {
           justifyContent={"center"}
           marginTop={10}
           cursor={"pointer"}
+          onClick={() => setAlbumVisible(true)}
         >
           <Text className="">Создать новый альбом</Text>
         </Box>
       </Flex>
-      <CreateGroup isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+      <CreateGroup
+        isOpen={groupVisible}
+        onClose={() => setGroupVisible(false)}
+      />
+      <CreateAlbum
+        isOpen={albumVisible}
+        onClose={() => setAlbumVisible(false)}
+      />
     </Container>
   );
 };

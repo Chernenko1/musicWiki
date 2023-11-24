@@ -19,6 +19,7 @@ export const groupsSlice = createSlice({
       state.groupsData = action.payload;
     },
     setMusicStyle(state, action) {
+      console.log(1);
       state.musicStyleData = action.payload;
     },
   },

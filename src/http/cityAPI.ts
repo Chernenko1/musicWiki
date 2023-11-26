@@ -6,7 +6,7 @@ export const createCity = async (params: any) => {
 };
 
 //ID - album and other
-export const fetchCitys = async () => {
+export const fetchCities = async () => {
   const { data } = await $authHost.get("api/city");
   return data;
 };

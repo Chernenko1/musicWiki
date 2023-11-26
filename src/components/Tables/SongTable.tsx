@@ -12,13 +12,12 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { fetchRoles } from "../../http/roleAPI";
 
 interface Props {
-  arr: Concert[];
+  arr: Song[];
 }
 
-export const ConcertsTable: React.FC<Props> = ({ arr }) => {
+export const SongTable: React.FC<Props> = ({ arr }) => {
   return (
     <Box>
       <TableContainer
@@ -30,28 +29,29 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
           <Thead>
             <Tr>
               <Th>Название</Th>
-              <Th>Город</Th>
-              <Th>Дата</Th>
-              <Th>Проданные билеты</Th>
+              <Th>Длительность</Th>
+              <Th>Стиль музыки</Th>
+              <Th>Текст</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {arr.map((itm: Concert) => (
+            {arr.map((itm: Song) => (
               <Tr key={itm.id}>
-                <Td>{itm.concert_name}</Td>
-                <Td>{itm.city_id}</Td>
-                <Td>{itm.date}</Td>
-
-                <Td>{itm.sold_tickets_id}</Td>
+                <Td width={"20%"}>{itm.song_name}</Td>
+                <Td width={"10%"}>
+                  {itm.duration.minutes + ":" + itm.duration.seconds}
+                </Td>
+                <Td width={"10%"}>{itm.music_style_id}</Td>
+                <Td width={"60%"}>{itm.lyrics}</Td>
               </Tr>
             ))}
           </Tbody>
           <Tfoot>
             <Tr>
-              <Th width={"20%"}>Название</Th>
-              <Th width={"10%"}>Дата Релиза</Th>
-              <Th width={"10%"}>Стиль музыки</Th>
-              <Th width={"60%"}>Описание</Th>
+              <Th>Название</Th>
+              <Th>Дата Релиза</Th>
+              <Th>Стиль музыки</Th>
+              <Th>Описание</Th>
             </Tr>
           </Tfoot>
         </Table>

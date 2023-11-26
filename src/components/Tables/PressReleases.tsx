@@ -15,10 +15,10 @@ import React, { useEffect, useState } from "react";
 import { fetchRoles } from "../../http/roleAPI";
 
 interface Props {
-  arr: Concert[];
+  arr: PR[];
 }
 
-export const ConcertsTable: React.FC<Props> = ({ arr }) => {
+export const PressReleasesTable: React.FC<Props> = ({ arr }) => {
   return (
     <Box>
       <TableContainer
@@ -29,20 +29,17 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
           <TableCaption>Описание таблицы</TableCaption>
           <Thead>
             <Tr>
-              <Th>Название</Th>
-              <Th>Город</Th>
+              <Th>Заголовок</Th>
               <Th>Дата</Th>
-              <Th>Проданные билеты</Th>
+              <Th>Текст</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {arr.map((itm: Concert) => (
+            {arr.map((itm: PR) => (
               <Tr key={itm.id}>
-                <Td>{itm.concert_name}</Td>
-                <Td>{itm.city_id}</Td>
-                <Td>{itm.date}</Td>
-
-                <Td>{itm.sold_tickets_id}</Td>
+                <Td>{itm.headline}</Td>
+                <Td>{itm.public_date}</Td>
+                <Td>{itm.text}</Td>
               </Tr>
             ))}
           </Tbody>

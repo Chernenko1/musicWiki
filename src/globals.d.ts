@@ -36,3 +36,20 @@ declare interface City {
   id: number;
   city_name: string;
 }
+
+declare interface Song {
+  id: number;
+  album_id: number;
+  music_style_id: number;
+  song_name: string;
+  lyrics: string;
+  duration: { minutes: number; seconds: number };
+}
+
+declare interface PR {
+  id: number;
+  group_id: number;
+  public_date: string;
+  headline: string;
+  text: string;
+}

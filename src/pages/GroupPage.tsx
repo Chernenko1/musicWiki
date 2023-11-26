@@ -7,10 +7,13 @@ import { fetchAlbums } from "../http/albumAPI";
 import { AlbumTable } from "../components/Tables/AlbumTables";
 import { fetchBandMembers } from "../http/bandMembers";
 import { MembersTable } from "../components/Tables/MembersTabel";
-import { fetchCitys } from "../http/cityAPI";
-import { fetchRoles } from "../http/roleAPI";
+import { fetchCities } from "../http/cityAPI";
 import { ConcertsTable } from "../components/Tables/ConcertsTable";
 import { fetchConcerts } from "../http/concertAPI";
+import { fetchSongs } from "../http/songAPI";
+import { SongTable } from "../components/Tables/SongTable";
+import { fetchPrs } from "../http/prAPI";
+import { PressReleasesTable } from "../components/Tables/PressReleases";
 
 export const GroupPage = () => {
   const { id } = useParams();
@@ -19,13 +22,17 @@ export const GroupPage = () => {
   const [members, setMembers] = useState<BandMember[]>([]);
   const [cities, setCities] = useState<City[]>([]);
   const [conserts, setConcerts] = useState<Concert[]>([]);
+  const [songs, setSongs] = useState<Song[]>([]);
+  const [pressR, setPressR] = useState<PR[]>([]);
 
   useEffect(() => {
     fetchOneGroup(id).then((data) => setGroup(data.group));
     fetchAlbums(id).then((data: any) => setAlbums(data.album));
     fetchBandMembers(id).then((data: any) => setMembers(data.bandMember));
-    fetchCitys().then((data: any) => setCities(data.city));
+    fetchCities().then((data: any) => setCities(data.city));
     fetchConcerts(id).then((data: any) => setConcerts(data.data));
+    fetchSongs(id).then((data: any) => setSongs(data.data));
+    fetchPrs(id).then((data: any) => setPressR(data.data));
   }, []);
 
   return (
@@ -47,6 +54,8 @@ export const GroupPage = () => {
           <AlbumTable arr={albums} />
           <MembersTable arr={members} />
           <ConcertsTable arr={conserts} />
+          <SongTable arr={songs} />
+          <PressReleasesTable arr={pressR} />
         </Box>
       </Box>
     </Box>

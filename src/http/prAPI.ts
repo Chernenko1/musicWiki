@@ -6,8 +6,8 @@ export const createPr = async (params: any) => {
 };
 
 //ID - album and other
-export const fetchPrs = async () => {
-  const { data } = await $authHost.get("api/pr");
+export const fetchPrs = async (id: any) => {
+  const { data } = await $authHost.get("api/pr/" + id);
   return data;
 };
 

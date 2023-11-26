@@ -29,10 +29,10 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
           <TableCaption>Описание таблицы</TableCaption>
           <Thead>
             <Tr>
-              <Th>Название</Th>
-              <Th>Город</Th>
-              <Th>Дата</Th>
-              <Th>Проданные билеты</Th>
+              <Th width={"20%"}>Название</Th>
+              <Th width={"10%"}>Город</Th>
+              <Th width={"10%"}>Дата</Th>
+              <Th width={"60%"}>Проданные билеты</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -49,9 +49,9 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
           <Tfoot>
             <Tr>
               <Th width={"20%"}>Название</Th>
-              <Th width={"10%"}>Дата Релиза</Th>
-              <Th width={"10%"}>Стиль музыки</Th>
-              <Th width={"60%"}>Описание</Th>
+              <Th width={"10%"}>Город</Th>
+              <Th width={"10%"}>Дата</Th>
+              <Th width={"60%"}>Проданные билеты</Th>
             </Tr>
           </Tfoot>
         </Table>

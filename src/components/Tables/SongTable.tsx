@@ -49,9 +49,9 @@ export const SongTable: React.FC<Props> = ({ arr }) => {
           <Tfoot>
             <Tr>
               <Th>Название</Th>
-              <Th>Дата Релиза</Th>
+              <Th>Длительность</Th>
               <Th>Стиль музыки</Th>
-              <Th>Описание</Th>
+              <Th>Текст</Th>
             </Tr>
           </Tfoot>
         </Table>

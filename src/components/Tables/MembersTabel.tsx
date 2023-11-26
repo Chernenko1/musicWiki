@@ -67,9 +67,9 @@ export const MembersTable: React.FC<Props> = ({ arr }) => {
           </Tbody>
           <Tfoot>
             <Tr>
-              <Th>Название</Th>
-              <Th>Дата Релиза</Th>
-              <Th>Стиль музыки</Th>
+              <Th>Имя</Th>
+              <Th>Фамилия</Th>
+              <Th>Роль</Th>
               <Th>Описание</Th>
             </Tr>
           </Tfoot>

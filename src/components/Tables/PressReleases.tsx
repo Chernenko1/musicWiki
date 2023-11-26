@@ -45,10 +45,9 @@ export const PressReleasesTable: React.FC<Props> = ({ arr }) => {
           </Tbody>
           <Tfoot>
             <Tr>
-              <Th width={"20%"}>Название</Th>
-              <Th width={"10%"}>Дата Релиза</Th>
-              <Th width={"10%"}>Стиль музыки</Th>
-              <Th width={"60%"}>Описание</Th>
+              <Th>Заголовок</Th>
+              <Th>Дата</Th>
+              <Th>Текст</Th>
             </Tr>
           </Tfoot>
         </Table>

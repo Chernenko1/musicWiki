@@ -6,8 +6,8 @@ export const createAward = async (params: any) => {
 };
 
 //ID - album and other
-export const fetchAwards = async () => {
-  const { data } = await $authHost.get("api/award");
+export const fetchAwards = async (id: any) => {
+  const { data } = await $authHost.get("api/award/" + id);
   return data;
 };
 

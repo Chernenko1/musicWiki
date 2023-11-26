@@ -53,3 +53,10 @@ declare interface PR {
   headline: string;
   text: string;
 }
+
+declare interface Award {
+  id: number;
+  group_id: number;
+  award_name: string;
+  date: string;
+}

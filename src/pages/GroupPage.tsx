@@ -14,6 +14,8 @@ import { fetchSongs } from "../http/songAPI";
 import { SongTable } from "../components/Tables/SongTable";
 import { fetchPrs } from "../http/prAPI";
 import { PressReleasesTable } from "../components/Tables/PressReleases";
+import { fetchAwards } from "../http/awardsAPI";
+import { AwardsTable } from "../components/Tables/AwardTable";
 
 export const GroupPage = () => {
   const { id } = useParams();
@@ -24,6 +26,7 @@ export const GroupPage = () => {
   const [conserts, setConcerts] = useState<Concert[]>([]);
   const [songs, setSongs] = useState<Song[]>([]);
   const [pressR, setPressR] = useState<PR[]>([]);
+  const [award, setAward] = useState<Award[]>([]);
 
   useEffect(() => {
     fetchOneGroup(id).then((data) => setGroup(data.group));
@@ -33,6 +36,7 @@ export const GroupPage = () => {
     fetchConcerts(id).then((data: any) => setConcerts(data.data));
     fetchSongs(id).then((data: any) => setSongs(data.data));
     fetchPrs(id).then((data: any) => setPressR(data.data));
+    fetchAwards(id).then((data: any) => setAward(data.data));
   }, []);
 
   return (
@@ -56,6 +60,7 @@ export const GroupPage = () => {
           <ConcertsTable arr={conserts} />
           <SongTable arr={songs} />
           <PressReleasesTable arr={pressR} />
+          <AwardsTable arr={award} />
         </Box>
       </Box>
     </Box>

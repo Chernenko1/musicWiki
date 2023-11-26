@@ -18,15 +18,21 @@ import {
   Flex,
   Button,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { updateTable } from "../../http/albumAPI";
+import { fetchRoles } from "../../http/roleAPI";
 
 interface Props {
-  arr: Album[];
+  arr: BandMember[];
 }
 
-export const AlbumTable: React.FC<Props> = ({ arr }) => {
+export const MembersTable: React.FC<Props> = ({ arr }) => {
   const [value, setValue] = useState("");
+  const [roles, setRoles] = useState<Roles[]>([{ id: 0, role_name: "none" }]);
+
+  useEffect(() => {
+    fetchRoles().then((data: any) => setRoles(data));
+  }, []);
 
   return (
     <Box>
@@ -38,33 +44,22 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
           <TableCaption>Описание таблицы</TableCaption>
           <Thead>
             <Tr>
-              <Th>Название</Th>
-              <Th>Дата Релиза</Th>
-              <Th>Стиль музыки</Th>
+              <Th>Имя</Th>
+              <Th>Фамилия</Th>
+              <Th>Роль</Th>
               <Th>Описание</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {arr.map((itm: any) => (
-              <Tr>
-                <Td width={"20%"}>
-                  <Editable
-                    defaultValue={itm.album_name}
-                    onSubmit={() => updateTable(itm.id, { album_name: value })}
-                    onCancel={() => setValue(itm.album_name)}
-                  >
-                    <EditablePreview />
-                    <EditableInput
-                      value={value}
-                      onChange={(e) => setValue(e.target.value)}
-                    />
-                  </Editable>
-                </Td>
-                <Td width={"10%"}>{itm.release_year}</Td>
-                <Td width={"10%"}>{itm.music_style_id}</Td>
+            {arr.map((itm: BandMember) => (
+              <Tr key={itm.id}>
+                <Td width={"20%"}>{itm.first_name}</Td>
+                <Td width={"10%"}>{itm.last_name}</Td>
+                <Td width={"10%"}>{roles[1].role_name}</Td>
+
                 <Td width={"60%"}>
                   <Text noOfLines={3} style={{ maxWidth: "" }}>
-                    {itm.description}
+                    {itm.biography}
                   </Text>
                 </Td>
               </Tr>

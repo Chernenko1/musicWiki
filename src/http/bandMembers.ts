@@ -1,16 +1,16 @@
 import { $authHost } from "./index";
 
 export const createBandMember = async (params: any) => {
-  const { data } = await $authHost.post("api/bandmember", params);
+  const { data } = await $authHost.post("api/bmember", params);
   return data;
 };
 
 //ID - album and other
-export const fetchBandMembers = async () => {
-  const { data } = await $authHost.get("api/bandmember");
+export const fetchBandMembers = async (id: any) => {
+  const { data } = await $authHost.get("api/bmember/" + id);
   return data;
 };
 
 export const destroyBandMember = async (id: any) => {
-  await $authHost.delete("api/bandmember", { data: id });
+  await $authHost.delete("api/bmember", { data: id });
 };

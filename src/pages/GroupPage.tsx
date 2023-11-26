@@ -2,19 +2,26 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./gp.module.css";
 import { Box, Image, Text } from "@chakra-ui/react";
-import { GroupTable } from "../components/GroupTable";
 import { fetchOneGroup } from "../http/groupAPI";
 import { fetchAlbums } from "../http/albumAPI";
 import { AlbumTable } from "../components/Tables/AlbumTables";
+import { fetchBandMembers } from "../http/bandMembers";
+import { MembersTable } from "../components/Tables/MembersTabel";
+import { fetchCitys } from "../http/cityAPI";
+import { fetchRoles } from "../http/roleAPI";
 
 export const GroupPage = () => {
   const { id } = useParams();
   const [group, setGroup] = useState({ group_name: "", description: "" });
-  const [albums, setAlbums] = useState<[]>([]);
+  const [albums, setAlbums] = useState<Album[]>([]);
+  const [members, setMembers] = useState<BandMember[]>([]);
+  const [cities, setCities] = useState<[]>([]);
 
   useEffect(() => {
     fetchOneGroup(id).then((data) => setGroup(data.group));
-    fetchAlbums(id).then((data) => setAlbums(data.album));
+    fetchAlbums(id).then((data: any) => setAlbums(data.album));
+    fetchBandMembers(id).then((data: any) => setMembers(data.bandMember));
+    fetchCitys().then((data) => setCities(data.city));
   }, []);
 
   return (
@@ -34,6 +41,7 @@ export const GroupPage = () => {
         </Box>
         <Box className={styles.g_table}>
           <AlbumTable arr={albums} />
+          <MembersTable arr={members} />
         </Box>
       </Box>
     </Box>

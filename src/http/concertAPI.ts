@@ -6,8 +6,8 @@ export const createConcert = async (params: any) => {
 };
 
 //ID - album and other
-export const fetchConcerts = async () => {
-  const { data } = await $authHost.get("api/concert");
+export const fetchConcerts = async (id: any) => {
+  const { data } = await $authHost.get("api/concert/" + id);
   return data;
 };
 

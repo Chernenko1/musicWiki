@@ -22,3 +22,17 @@ declare interface BandMember {
   last_name: string;
   biography: string;
 }
+
+declare interface Concert {
+  id: number;
+  group_id: number;
+  sold_tickets_id: number;
+  city_id: number;
+  concert_name: string;
+  date: string;
+}
+
+declare interface City {
+  id: number;
+  city_name: string;
+}

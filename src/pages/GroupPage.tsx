@@ -9,19 +9,23 @@ import { fetchBandMembers } from "../http/bandMembers";
 import { MembersTable } from "../components/Tables/MembersTabel";
 import { fetchCitys } from "../http/cityAPI";
 import { fetchRoles } from "../http/roleAPI";
+import { ConcertsTable } from "../components/Tables/ConcertsTable";
+import { fetchConcerts } from "../http/concertAPI";
 
 export const GroupPage = () => {
   const { id } = useParams();
   const [group, setGroup] = useState({ group_name: "", description: "" });
   const [albums, setAlbums] = useState<Album[]>([]);
   const [members, setMembers] = useState<BandMember[]>([]);
-  const [cities, setCities] = useState<[]>([]);
+  const [cities, setCities] = useState<City[]>([]);
+  const [conserts, setConcerts] = useState<Concert[]>([]);
 
   useEffect(() => {
     fetchOneGroup(id).then((data) => setGroup(data.group));
     fetchAlbums(id).then((data: any) => setAlbums(data.album));
     fetchBandMembers(id).then((data: any) => setMembers(data.bandMember));
-    fetchCitys().then((data) => setCities(data.city));
+    fetchCitys().then((data: any) => setCities(data.city));
+    fetchConcerts(id).then((data: any) => setConcerts(data.data));
   }, []);
 
   return (
@@ -42,6 +46,7 @@ export const GroupPage = () => {
         <Box className={styles.g_table}>
           <AlbumTable arr={albums} />
           <MembersTable arr={members} />
+          <ConcertsTable arr={conserts} />
         </Box>
       </Box>
     </Box>

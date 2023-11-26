@@ -1,4 +1,4 @@
-import { $authHost, $host } from "./index";
+import { $authHost } from "./index";
 
 export const createGroup = async (group: any) => {
   console.log(group);

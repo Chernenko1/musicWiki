@@ -3,7 +3,7 @@ import { RootState } from "../store";
 
 interface GroupsState {
   groupsData: [];
-  musicStyleData: [];
+  musicStyleData: MusicStyles[];
   roles: [];
   cities: [];
   bandMembers: [];
@@ -46,6 +46,7 @@ export const groupsSlice = createSlice({
       state.musicStyleData = action.payload;
     },
     setRoles(state, action) {
+      console.log(123);
       state.roles = action.payload;
     },
     setCities(state, action) {

@@ -29,9 +29,9 @@ export const PressReleasesTable: React.FC<Props> = ({ arr }) => {
           <TableCaption>Описание таблицы</TableCaption>
           <Thead>
             <Tr>
-              <Th>Заголовок</Th>
-              <Th>Дата</Th>
-              <Th>Текст</Th>
+              <Th width={"20%"}>Заголовок</Th>
+              <Th width={"10%"}>Дата</Th>
+              <Th width={"70%"}>Текст</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -45,9 +45,9 @@ export const PressReleasesTable: React.FC<Props> = ({ arr }) => {
           </Tbody>
           <Tfoot>
             <Tr>
-              <Th>Заголовок</Th>
-              <Th>Дата</Th>
-              <Th>Текст</Th>
+              <Th width={"20%"}>Заголовок</Th>
+              <Th width={"10%"}>Дата</Th>
+              <Th width={"70%"}>Текст</Th>
             </Tr>
           </Tfoot>
         </Table>

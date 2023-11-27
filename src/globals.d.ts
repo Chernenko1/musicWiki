@@ -12,6 +12,7 @@ declare interface Album {
   description: string;
   music_style_id: number;
   albums_sales: number;
+  "music_style.style_name"?: string;
 }
 
 declare interface BandMember {
@@ -21,6 +22,7 @@ declare interface BandMember {
   first_name: string;
   last_name: string;
   biography: string;
+  "role.role_name"?: string;
 }
 
 declare interface Concert {
@@ -43,7 +45,8 @@ declare interface Song {
   music_style_id: number;
   song_name: string;
   lyrics: string;
-  duration: { minutes: number; seconds: number };
+  duration: string;
+  "music_style.style_name"?: string;
 }
 
 declare interface PR {
@@ -59,4 +62,9 @@ declare interface Award {
   group_id: number;
   award_name: string;
   date: string;
+}
+
+declare interface MusicStyles {
+  id: number;
+  music_style: string;
 }

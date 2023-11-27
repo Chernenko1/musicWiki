@@ -15,19 +15,17 @@ import {
   Select,
   Stack,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { createAlbums } from "../../http/albumAPI";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { fetchGroups } from "../../http/groupAPI";
-import { setGroups, setMusicStyle } from "../../store/slices/groupSlice";
-import { fetchMusicS } from "../../http/musicStyleAPI";
-
+import { createRole } from "../../http/roleAPI";
+import { createBandMember } from "../../http/bandMembers";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const CreateAlbum: React.FC<Props> = ({ isOpen, onClose }) => {
+export const CreateMember: React.FC<Props> = ({ isOpen, onClose }) => {
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
 
@@ -35,31 +33,27 @@ export const CreateAlbum: React.FC<Props> = ({ isOpen, onClose }) => {
 
   const [groupId, setGroupId] = useState("");
   const [description, setDescription] = useState("");
-  const [createYear, setCreateYear] = useState(0);
-  const [musicStyle, setMusicStyl] = useState("");
-  const [sales_copies, setSales] = useState(0);
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [role, setRole] = useState("");
 
-  const { groupsData, musicStyleData } = useAppSelector(
+  const { groupsData, musicStyleData, roles } = useAppSelector(
     (state) => state.groups
   );
 
   const addData = () => {
-    createAlbums({
+    createBandMember({
       group_id: groupId,
-      album_name: name,
-      release_year: createYear,
-      description: description,
-      music_style_id: +musicStyle,
-      album_sales: sales_copies,
-      image_id: 1,
+      first_name: firstName,
+      last_name: lastName,
+      biography: description,
+      role_id: role,
     }).then((data) => {
       setGroupId("");
-      setName("");
-      setSales(0);
-      setCreateYear(0);
+      setFirstName("");
+      setLastName("");
+      setRole("");
       setDescription("");
-      setMusicStyle("");
       onClose();
     });
   };
@@ -74,25 +68,25 @@ export const CreateAlbum: React.FC<Props> = ({ isOpen, onClose }) => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Создание нового альбома</ModalHeader>
+          <ModalHeader>Добавление участника</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>Название альбома</FormLabel>
+              <FormLabel>Имя</FormLabel>
               <Input
                 ref={initialRef}
-                placeholder="Название группы"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                placeholder="Имя"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel>Год релиза</FormLabel>
+              <FormLabel>Фамилия</FormLabel>
               <Input
-                placeholder="Год создания"
-                value={createYear}
-                onChange={(e) => setCreateYear(+e.target.value)}
+                placeholder="Фамилия"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
             </FormControl>
 
@@ -105,22 +99,15 @@ export const CreateAlbum: React.FC<Props> = ({ isOpen, onClose }) => {
               />
             </FormControl>
 
-            <FormControl mt={4}>
-              <FormLabel>Количество продаж</FormLabel>
-              <Input
-                placeholder="Количество продаж"
-                value={sales_copies}
-                onChange={(e) => setSales(+e.target.value)}
-              />
-            </FormControl>
-
             <Select
-              placeholder="Стиль музыки"
+              placeholder="Роль"
               mt={4}
-              onChange={(e) => setMusicStyl(e.target.value)}
+              onChange={(e) => setRole(e.target.value)}
             >
-              {musicStyleData.map((itm: any) => (
-                <option value={itm.id}>{itm.style_name}</option>
+              {roles.map((itm: any) => (
+                <option value={itm.id} key={itm.id}>
+                  {itm.role_name}
+                </option>
               ))}
             </Select>
 
@@ -130,7 +117,9 @@ export const CreateAlbum: React.FC<Props> = ({ isOpen, onClose }) => {
               onChange={(e) => setGroupId(e.target.value)}
             >
               {groupsData.map((itm: any) => (
-                <option value={itm.id}>{itm.group_name}</option>
+                <option value={itm.id} key={itm.id + "key"}>
+                  {itm.group_name}
+                </option>
               ))}
             </Select>
           </ModalBody>

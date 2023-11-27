@@ -39,9 +39,10 @@ export const SongTable: React.FC<Props> = ({ arr }) => {
               <Tr key={itm.id}>
                 <Td width={"20%"}>{itm.song_name}</Td>
                 <Td width={"10%"}>
-                  {itm.duration.minutes + ":" + itm.duration.seconds}
+                  {/* {itm.duration.minutes + ":" + itm.duration.seconds} */}
+                  {itm.duration}
                 </Td>
-                <Td width={"10%"}>{itm.music_style_id}</Td>
+                <Td width={"10%"}>{itm["music_style.style_name"]}</Td>
                 <Td width={"60%"}>{itm.lyrics}</Td>
               </Tr>
             ))}

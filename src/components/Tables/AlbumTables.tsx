@@ -18,15 +18,29 @@ import {
   Flex,
   Button,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { updateTable } from "../../http/albumAPI";
+import { fetchGroups } from "../../http/groupAPI";
+import { CreateAlbum } from "../modals/CreateAlbum";
+import { useAppSelector } from "../../store/hooks";
 
 interface Props {
   arr: Album[];
+  // ms: MusicStyles[];
 }
 
 export const AlbumTable: React.FC<Props> = ({ arr }) => {
   const [value, setValue] = useState("");
+
+  // const dispatch = useAppDispatch();
+
+  // useEffect(() => {
+  //   fetchMusicS().then((data) => dispatch(setMusicStyle(data.musicStyle)));
+  // }, []);
+
+  const ms = useAppSelector((state) => state.groups.musicStyleData) || [];
+
+  const [albumVisible, setAlbumVisible] = useState(false);
 
   return (
     <Box>
@@ -35,7 +49,11 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
         style={{ borderWidth: 1, borderColor: "black", marginBottom: 10 }}
       >
         <Table variant="striped" colorScheme="gray">
-          <TableCaption>Описание таблицы</TableCaption>
+          <TableCaption>
+            <Button onClick={() => setAlbumVisible(true)}>
+              Добавить альбом
+            </Button>
+          </TableCaption>
           <Thead>
             <Tr>
               <Th>Название</Th>
@@ -45,7 +63,7 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {arr.map((itm: any) => (
+            {arr.map((itm: Album) => (
               <Tr>
                 <Td width={"20%"}>
                   <Editable
@@ -61,7 +79,7 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
                   </Editable>
                 </Td>
                 <Td width={"10%"}>{itm.release_year}</Td>
-                <Td width={"10%"}>{itm.music_style_id}</Td>
+                <Td width={"10%"}>{itm["music_style.style_name"]}</Td>
                 <Td width={"60%"}>
                   <Text noOfLines={3} style={{ maxWidth: "" }}>
                     {itm.description}
@@ -80,6 +98,10 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
           </Tfoot>
         </Table>
       </TableContainer>
+      <CreateAlbum
+        isOpen={albumVisible}
+        onClose={() => setAlbumVisible(false)}
+      />
     </Box>
   );
 };

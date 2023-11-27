@@ -1,8 +1,5 @@
 import {
   Box,
-  Editable,
-  EditableInput,
-  EditablePreview,
   Table,
   TableCaption,
   TableContainer,
@@ -13,26 +10,19 @@ import {
   Th,
   Thead,
   Tr,
-  ButtonGroup,
-  useEditableControls,
-  Flex,
   Button,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { updateTable } from "../../http/albumAPI";
 import { fetchRoles } from "../../http/roleAPI";
+import { CreateMember } from "../modals/CreateMember";
 
 interface Props {
   arr: BandMember[];
 }
 
 export const MembersTable: React.FC<Props> = ({ arr }) => {
-  const [value, setValue] = useState("");
-  const [roles, setRoles] = useState<Roles[]>([{ id: 0, role_name: "none" }]);
-
-  useEffect(() => {
-    fetchRoles().then((data: any) => setRoles(data));
-  }, []);
+  const [memberVisible, setMemberVisible] = useState(false);
 
   return (
     <Box>
@@ -41,7 +31,12 @@ export const MembersTable: React.FC<Props> = ({ arr }) => {
         style={{ borderWidth: 1, borderColor: "black", marginBottom: 10 }}
       >
         <Table variant="striped" colorScheme="gray">
-          <TableCaption>Описание таблицы</TableCaption>
+          <TableCaption>
+            <Button onClick={() => setMemberVisible(true)}>
+              Добавить участника
+            </Button>
+          </TableCaption>
+          <Button></Button>
           <Thead>
             <Tr>
               <Th>Имя</Th>
@@ -55,7 +50,7 @@ export const MembersTable: React.FC<Props> = ({ arr }) => {
               <Tr key={itm.id}>
                 <Td width={"20%"}>{itm.first_name}</Td>
                 <Td width={"10%"}>{itm.last_name}</Td>
-                <Td width={"10%"}>{roles[1].role_name}</Td>
+                <Td width={"10%"}>{itm["role.role_name"]}</Td>
 
                 <Td width={"60%"}>
                   <Text noOfLines={3} style={{ maxWidth: "" }}>
@@ -75,6 +70,10 @@ export const MembersTable: React.FC<Props> = ({ arr }) => {
           </Tfoot>
         </Table>
       </TableContainer>
+      <CreateMember
+        isOpen={memberVisible}
+        onClose={() => setMemberVisible(false)}
+      />
     </Box>
   );
 };

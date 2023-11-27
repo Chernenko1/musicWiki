@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./gp.module.css";
 import { Box, Image, Text } from "@chakra-ui/react";
-import { fetchOneGroup } from "../http/groupAPI";
+import { fetchGroups, fetchOneGroup } from "../http/groupAPI";
 import { fetchAlbums } from "../http/albumAPI";
 import { AlbumTable } from "../components/Tables/AlbumTables";
 import { fetchBandMembers } from "../http/bandMembers";
@@ -16,6 +16,10 @@ import { fetchPrs } from "../http/prAPI";
 import { PressReleasesTable } from "../components/Tables/PressReleases";
 import { fetchAwards } from "../http/awardsAPI";
 import { AwardsTable } from "../components/Tables/AwardTable";
+import { fetchMusicS } from "../http/musicStyleAPI";
+import { useAppDispatch } from "../store/hooks";
+import { setGroups, setMusicStyle, setRoles } from "../store/slices/groupSlice";
+import { fetchRoles } from "../http/roleAPI";
 
 export const GroupPage = () => {
   const { id } = useParams();
@@ -28,15 +32,23 @@ export const GroupPage = () => {
   const [pressR, setPressR] = useState<PR[]>([]);
   const [award, setAward] = useState<Award[]>([]);
 
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     fetchOneGroup(id).then((data) => setGroup(data.group));
     fetchAlbums(id).then((data: any) => setAlbums(data.album));
     fetchBandMembers(id).then((data: any) => setMembers(data.bandMember));
+    fetchRoles().then((data) => dispatch(setRoles(data)));
+
     fetchCities().then((data: any) => setCities(data.city));
     fetchConcerts(id).then((data: any) => setConcerts(data.data));
     fetchSongs(id).then((data: any) => setSongs(data.data));
     fetchPrs(id).then((data: any) => setPressR(data.data));
     fetchAwards(id).then((data: any) => setAward(data.data));
+    fetchGroups().then((data) => {
+      dispatch(setGroups(data.groups.rows));
+    });
+    fetchMusicS().then((data) => dispatch(setMusicStyle(data.musicStyle)));
   }, []);
 
   return (

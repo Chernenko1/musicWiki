@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Table,
   TableCaption,
   TableContainer,
@@ -13,12 +14,15 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { fetchRoles } from "../../http/roleAPI";
+import { CreateAward } from "../modals/CreateAward";
 
 interface Props {
   arr: Award[];
 }
 
 export const AwardsTable: React.FC<Props> = ({ arr }) => {
+  const [visible, setVisible] = useState(false);
+
   return (
     <Box>
       <TableContainer
@@ -26,7 +30,9 @@ export const AwardsTable: React.FC<Props> = ({ arr }) => {
         style={{ borderWidth: 1, borderColor: "black", marginBottom: 10 }}
       >
         <Table variant="striped" colorScheme="gray">
-          <TableCaption>Описание таблицы</TableCaption>
+          <TableCaption>
+            <Button onClick={() => setVisible(true)}>Добавить награду</Button>
+          </TableCaption>
           <Thead>
             <Tr>
               <Th width={"20%"}>Заголовок</Th>
@@ -49,6 +55,7 @@ export const AwardsTable: React.FC<Props> = ({ arr }) => {
           </Tfoot>
         </Table>
       </TableContainer>
+      <CreateAward isOpen={visible} onClose={() => setVisible(false)} />
     </Box>
   );
 };

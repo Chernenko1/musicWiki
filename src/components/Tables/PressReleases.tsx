@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Table,
   TableCaption,
   TableContainer,
@@ -11,14 +12,16 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { fetchRoles } from "../../http/roleAPI";
+import React, { useState } from "react";
+import { CreatePR } from "../modals/CreatePR";
 
 interface Props {
   arr: PR[];
 }
 
 export const PressReleasesTable: React.FC<Props> = ({ arr }) => {
+  const [visible, setVisible] = useState(false);
+
   return (
     <Box>
       <TableContainer
@@ -26,7 +29,11 @@ export const PressReleasesTable: React.FC<Props> = ({ arr }) => {
         style={{ borderWidth: 1, borderColor: "black", marginBottom: 10 }}
       >
         <Table variant="striped" colorScheme="gray">
-          <TableCaption>Описание таблицы</TableCaption>
+          <TableCaption>
+            <Button onClick={() => setVisible(true)}>
+              Добавить пресс-релиз
+            </Button>
+          </TableCaption>
           <Thead>
             <Tr>
               <Th width={"20%"}>Заголовок</Th>
@@ -52,6 +59,7 @@ export const PressReleasesTable: React.FC<Props> = ({ arr }) => {
           </Tfoot>
         </Table>
       </TableContainer>
+      <CreatePR isOpen={visible} onClose={() => setVisible(false)} />
     </Box>
   );
 };

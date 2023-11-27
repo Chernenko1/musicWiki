@@ -68,3 +68,16 @@ declare interface MusicStyles {
   id: number;
   music_style: string;
 }
+
+declare interface Concert {
+  id: number;
+  group_id: number;
+  concert_name: string;
+  city_id: number;
+  date: string;
+  sold_tickets_id: number;
+  "concert_ticket.sold_tickets"?: number;
+  "concert_ticket.price"?: number;
+  "concert_ticket.sale_date"?: string;
+  "city.city_name"?: string;
+}

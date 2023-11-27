@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Table,
   TableCaption,
   TableContainer,
@@ -13,12 +14,15 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { fetchRoles } from "../../http/roleAPI";
+import { CreateConcerts } from "../modals/CreateCT";
 
 interface Props {
   arr: Concert[];
 }
 
 export const ConcertsTable: React.FC<Props> = ({ arr }) => {
+  const [visible, setVisible] = useState(false);
+
   return (
     <Box>
       <TableContainer
@@ -26,23 +30,28 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
         style={{ borderWidth: 1, borderColor: "black", marginBottom: 10 }}
       >
         <Table variant="striped" colorScheme="gray">
-          <TableCaption>Описание таблицы</TableCaption>
+          <TableCaption>
+            <Button onClick={() => setVisible(true)}>Добавить концерт</Button>
+          </TableCaption>
           <Thead>
             <Tr>
               <Th width={"20%"}>Название</Th>
               <Th width={"10%"}>Город</Th>
               <Th width={"10%"}>Дата</Th>
-              <Th width={"60%"}>Проданные билеты</Th>
+              <Th width={"20%"}>Цена билета</Th>
+              <Th width={"20%"}>Дата продаж</Th>
+              <Th width={"20%"}>Проданные билеты</Th>
             </Tr>
           </Thead>
           <Tbody>
             {arr.map((itm: Concert) => (
               <Tr key={itm.id}>
                 <Td>{itm.concert_name}</Td>
-                <Td>{itm.city_id}</Td>
+                <Td>{itm["city.city_name"]}</Td>
                 <Td>{itm.date}</Td>
-
-                <Td>{itm.sold_tickets_id}</Td>
+                <Td>{itm["concert_ticket.price"]}</Td>
+                <Td>{itm["concert_ticket.sale_date"]}</Td>
+                <Td>{itm["concert_ticket.sold_tickets"]}</Td>
               </Tr>
             ))}
           </Tbody>
@@ -51,11 +60,14 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
               <Th width={"20%"}>Название</Th>
               <Th width={"10%"}>Город</Th>
               <Th width={"10%"}>Дата</Th>
-              <Th width={"60%"}>Проданные билеты</Th>
+              <Th width={"20%"}>Цена билета</Th>
+              <Th width={"20%"}>Дата продаж</Th>
+              <Th width={"20%"}>Проданные билеты</Th>
             </Tr>
           </Tfoot>
         </Table>
       </TableContainer>
+      <CreateConcerts isOpen={visible} onClose={() => setVisible(false)} />
     </Box>
   );
 };

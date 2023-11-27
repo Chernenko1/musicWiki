@@ -18,7 +18,12 @@ import { fetchAwards } from "../http/awardsAPI";
 import { AwardsTable } from "../components/Tables/AwardTable";
 import { fetchMusicS } from "../http/musicStyleAPI";
 import { useAppDispatch } from "../store/hooks";
-import { setGroups, setMusicStyle, setRoles } from "../store/slices/groupSlice";
+import {
+  setCities,
+  setGroups,
+  setMusicStyle,
+  setRoles,
+} from "../store/slices/groupSlice";
 import { fetchRoles } from "../http/roleAPI";
 
 export const GroupPage = () => {
@@ -26,7 +31,6 @@ export const GroupPage = () => {
   const [group, setGroup] = useState({ group_name: "", description: "" });
   const [albums, setAlbums] = useState<Album[]>([]);
   const [members, setMembers] = useState<BandMember[]>([]);
-  const [cities, setCities] = useState<City[]>([]);
   const [conserts, setConcerts] = useState<Concert[]>([]);
   const [songs, setSongs] = useState<Song[]>([]);
   const [pressR, setPressR] = useState<PR[]>([]);
@@ -39,9 +43,9 @@ export const GroupPage = () => {
     fetchAlbums(id).then((data: any) => setAlbums(data.album));
     fetchBandMembers(id).then((data: any) => setMembers(data.bandMember));
     fetchRoles().then((data) => dispatch(setRoles(data)));
+    fetchCities().then((data: any) => dispatch(setCities(data)));
 
-    fetchCities().then((data: any) => setCities(data.city));
-    fetchConcerts(id).then((data: any) => setConcerts(data.data));
+    fetchConcerts(id).then((data: any) => setConcerts(data));
     fetchSongs(id).then((data: any) => setSongs(data.data));
     fetchPrs(id).then((data: any) => setPressR(data.data));
     fetchAwards(id).then((data: any) => setAward(data.data));

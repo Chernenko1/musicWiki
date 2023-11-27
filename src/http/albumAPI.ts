@@ -12,8 +12,8 @@ export const fetchAlbums = async (id: any) => {
   return data;
 };
 
-export const fetchOneAlbum = async (id: any) => {
-  const { data } = await $authHost.get("api/albums/one" + id);
+export const fetchAllAlbums = async () => {
+  const { data } = await $authHost.get("api/albums/all");
   return data;
 };
 

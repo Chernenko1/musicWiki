@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Table,
   TableCaption,
   TableContainer,
@@ -12,12 +13,15 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { CreateSong } from "../modals/CreateSong";
 
 interface Props {
   arr: Song[];
 }
 
 export const SongTable: React.FC<Props> = ({ arr }) => {
+  const [visible, setVisible] = useState(false);
+
   return (
     <Box>
       <TableContainer
@@ -25,11 +29,12 @@ export const SongTable: React.FC<Props> = ({ arr }) => {
         style={{ borderWidth: 1, borderColor: "black", marginBottom: 10 }}
       >
         <Table variant="striped" colorScheme="gray">
-          <TableCaption>Описание таблицы</TableCaption>
+          <TableCaption>
+            <Button onClick={() => setVisible(true)}>Добавить песню</Button>
+          </TableCaption>
           <Thead>
             <Tr>
               <Th>Название</Th>
-              <Th>Длительность</Th>
               <Th>Стиль музыки</Th>
               <Th>Текст</Th>
             </Tr>
@@ -38,11 +43,7 @@ export const SongTable: React.FC<Props> = ({ arr }) => {
             {arr.map((itm: Song) => (
               <Tr key={itm.id}>
                 <Td width={"20%"}>{itm.song_name}</Td>
-                <Td width={"10%"}>
-                  {/* {itm.duration.minutes + ":" + itm.duration.seconds} */}
-                  {itm.duration}
-                </Td>
-                <Td width={"10%"}>{itm["music_style.style_name"]}</Td>
+                <Td width={"20%"}>{itm["music_style.style_name"]}</Td>
                 <Td width={"60%"}>{itm.lyrics}</Td>
               </Tr>
             ))}
@@ -50,13 +51,13 @@ export const SongTable: React.FC<Props> = ({ arr }) => {
           <Tfoot>
             <Tr>
               <Th>Название</Th>
-              <Th>Длительность</Th>
               <Th>Стиль музыки</Th>
               <Th>Текст</Th>
             </Tr>
           </Tfoot>
         </Table>
       </TableContainer>
+      <CreateSong isOpen={visible} onClose={() => setVisible(false)} />
     </Box>
   );
 };

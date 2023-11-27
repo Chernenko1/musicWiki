@@ -46,10 +46,10 @@ export const groupsSlice = createSlice({
       state.musicStyleData = action.payload;
     },
     setRoles(state, action) {
-      console.log(123);
       state.roles = action.payload;
     },
     setCities(state, action) {
+      console.log(123);
       state.cities = action.payload;
     },
     setBandMembers(state, action) {

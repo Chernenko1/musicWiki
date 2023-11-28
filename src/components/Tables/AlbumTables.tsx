@@ -32,14 +32,6 @@ interface Props {
 export const AlbumTable: React.FC<Props> = ({ arr }) => {
   const [value, setValue] = useState("");
 
-  // const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   fetchMusicS().then((data) => dispatch(setMusicStyle(data.musicStyle)));
-  // }, []);
-
-  const ms = useAppSelector((state) => state.groups.musicStyleData) || [];
-
   const [albumVisible, setAlbumVisible] = useState(false);
 
   return (
@@ -65,25 +57,11 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
           <Tbody>
             {arr.map((itm: Album) => (
               <Tr>
-                <Td width={"20%"}>
-                  <Editable
-                    defaultValue={itm.album_name}
-                    onSubmit={() => updateTable(itm.id, { album_name: value })}
-                    onCancel={() => setValue(itm.album_name)}
-                  >
-                    <EditablePreview />
-                    <EditableInput
-                      value={value}
-                      onChange={(e) => setValue(e.target.value)}
-                    />
-                  </Editable>
-                </Td>
+                <Td width={"20%"}>{itm.album_name}</Td>
                 <Td width={"10%"}>{itm.release_year}</Td>
                 <Td width={"10%"}>{itm["music_style.style_name"]}</Td>
                 <Td width={"60%"}>
-                  <Text noOfLines={3} style={{ maxWidth: "" }}>
-                    {itm.description}
-                  </Text>
+                  <Text noOfLines={3}>{itm.description}</Text>
                 </Td>
               </Tr>
             ))}

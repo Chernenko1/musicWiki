@@ -13,8 +13,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { updateTable } from "../../http/albumAPI";
-import { fetchRoles } from "../../http/roleAPI";
 import { CreateMember } from "../modals/CreateMember";
 
 interface Props {

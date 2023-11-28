@@ -17,6 +17,6 @@ export const fetchAllAlbums = async () => {
   return data;
 };
 
-export const updateTable = async (id: any, param: any) => {
+export const updateAlbum = async (id: any, param: any) => {
   await $authHost.put("api/albums/" + id, param);
 };

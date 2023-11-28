@@ -11,7 +11,7 @@ declare interface Album {
   release_year: number;
   description: string;
   music_style_id: number;
-  albums_sales: number;
+  album_sales: number;
   "music_style.style_name"?: string;
 }
 

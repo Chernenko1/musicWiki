@@ -15,11 +15,14 @@ import {
   Flex,
   Button,
   EditableTextarea,
+  Select,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { updateAlbum } from "../../http/albumAPI";
 import { CreateAlbum } from "../modals/CreateAlbum";
 import { IoCheckmark, IoClose } from "react-icons/io5";
+import { useAppSelector } from "../../store/hooks";
+import { FormForTable } from "../FormForTable";
 
 interface Props {
   arr: Album[];
@@ -34,9 +37,10 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
   const [releaseYear, setReleaseYear] = useState("");
   const [description, setDescription] = useState("");
   const [albumSales, setAlbumSales] = useState(0);
+  const [music, setMusic] = useState("");
   const [activeIndex, setActiveIndex] = useState(-1);
 
-  console.log(arr.map((itm) => itm));
+  const mus = useAppSelector((state) => state.groups.musicStyleData);
 
   return (
     <Box>
@@ -62,55 +66,12 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
           <Tbody>
             {arr.map((itm: Album, index: number) => (
               <Tr>
-                <Td width={"20%"}>
-                  <Flex alignItems={"center"} justifyContent={"space-between"}>
-                    <Editable
-                      defaultValue={
-                        itm.album_name === null || itm.album_name.length === 0
-                          ? "нет записи"
-                          : itm.album_name
-                      }
-                    >
-                      <EditablePreview />
-                      <EditableTextarea
-                        onChange={(e) => {
-                          setName(e.target.value);
-                        }}
-                        onFocus={() => setActiveIndex(index)}
-                      />
-                    </Editable>
-                    <Button
-                      size={"xs"}
-                      p={0}
-                      bgColor={"lightgreen"}
-                      onClick={() => {
-                        updateAlbum(itm.id, { album_name: name });
-                        setName("");
-                      }}
-                      style={{
-                        display:
-                          name.length === 0 || activeIndex !== index
-                            ? "none"
-                            : "",
-                      }}
-                    >
-                      <IoCheckmark size={10} />
-                    </Button>
-                    <Button
-                      size={"xs"}
-                      p={0}
-                      bgColor={"indianred"}
-                      onClick={() => setName("")}
-                      style={{
-                        display:
-                          name.length === 0 || activeIndex !== index
-                            ? "none"
-                            : "",
-                      }}
-                    >
-                      <IoClose size={10} />
-                    </Button>
-                  </Flex>
+                <Td width={"19%"}>
+                  <FormForTable
+                    item={itm.album_name}
+                    id={itm.id}
+                    update_col="album_name"
+                  />
                 </Td>
                 <Td width={"10%"}>
                   <Flex alignItems={"center"} justifyContent={"space-between"}>
@@ -171,7 +132,40 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
                     </Button>
                   </Flex>
                 </Td>
-                <Td width={"10%"}>{itm["music_style.style_name"]}</Td>
+                <Td width={"11%"}>
+                  <Flex alignItems={"center"} justifyContent={"space-between"}>
+                    {
+                      <Select
+                        placeholder={itm["music_style.style_name"]}
+                        onChange={(e) => {
+                          setMusic(e.target.value);
+                          setActiveIndex(index);
+                        }}
+                      >
+                        {mus.map((itm) => (
+                          <option value={itm.id}>{itm.style_name}</option>
+                        ))}
+                      </Select>
+                    }
+                    <Button
+                      size={"xs"}
+                      p={0}
+                      bgColor={"lightgreen"}
+                      onClick={() => {
+                        updateAlbum(itm.id, { music_style_id: music });
+                        setMusic("");
+                      }}
+                      style={{
+                        display:
+                          music.length === 0 || activeIndex !== index
+                            ? "none"
+                            : "",
+                      }}
+                    >
+                      <IoCheckmark size={10} />
+                    </Button>
+                  </Flex>
+                </Td>
                 <Td width={"50%"}>
                   <Flex alignItems={"center"} justifyContent={"space-between"}>
                     <Editable defaultValue={itm.description}>

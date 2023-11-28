@@ -66,7 +66,7 @@ declare interface Award {
 
 declare interface MusicStyles {
   id: number;
-  music_style: string;
+  style_name: string;
 }
 
 declare interface Concert {

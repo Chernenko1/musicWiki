@@ -19,7 +19,7 @@ import {
 import React, { useState } from "react";
 import { updateAlbum } from "../../http/albumAPI";
 import { CreateAlbum } from "../modals/CreateAlbum";
-import { IoCheckmark } from "react-icons/io5";
+import { IoCheckmark, IoClose } from "react-icons/io5";
 
 interface Props {
   arr: Album[];
@@ -95,6 +95,20 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
                       }}
                     >
                       <IoCheckmark size={10} />
+                    </Button>
+                    <Button
+                      size={"xs"}
+                      p={0}
+                      bgColor={"indianred"}
+                      onClick={() => setName("")}
+                      style={{
+                        display:
+                          name.length === 0 || activeIndex !== index
+                            ? "none"
+                            : "",
+                      }}
+                    >
+                      <IoClose size={10} />
                     </Button>
                   </Flex>
                 </Td>

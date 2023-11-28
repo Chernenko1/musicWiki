@@ -14,3 +14,7 @@ export const fetchCities = async () => {
 export const destroyCity = async (id: any) => {
   await $authHost.delete("api/city", { data: id });
 };
+
+export const updateCity = async (id: any, param: any) => {
+  await $authHost.put("api/award/" + id, param);
+};

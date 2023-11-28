@@ -14,3 +14,7 @@ export const fetchBandMembers = async (id: any) => {
 export const destroyBandMember = async (id: any) => {
   await $authHost.delete("api/bmember", { data: id });
 };
+
+export const updateBandMember = async (id: any, param: any) => {
+  await $authHost.put("api/award/" + id, param);
+};

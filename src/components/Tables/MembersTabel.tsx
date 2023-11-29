@@ -51,7 +51,7 @@ export const MembersTable: React.FC<Props> = ({ arr }) => {
           <Tbody>
             {arr.map((itm: BandMember) => (
               <Tr key={itm.id}>
-                <Td width={"20%"}>
+                <Td width={"10%"}>
                   <FormForTable
                     id={itm.id}
                     item={itm.first_name}
@@ -69,7 +69,7 @@ export const MembersTable: React.FC<Props> = ({ arr }) => {
                     delFunc={destroyBandMember}
                   />
                 </Td>
-                <Td width={"10%"}>
+                <Td width={"20%"}>
                   <SelectedForTable
                     id={itm.id}
                     item={String(itm["role.role_name"])}

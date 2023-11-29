@@ -1,10 +1,6 @@
 import {
   Box,
   Button,
-  Editable,
-  EditablePreview,
-  EditableTextarea,
-  Flex,
   Table,
   TableCaption,
   TableContainer,
@@ -18,7 +14,7 @@ import {
 import React, { useState } from "react";
 import { CreateAward } from "../modals/CreateAward";
 import { destroyAward, updateAward } from "../../http/awardsAPI";
-import { IoCheckmark, IoClose, IoTrashBinOutline } from "react-icons/io5";
+import { IoTrashBinOutline } from "react-icons/io5";
 import { FormForTable } from "../FormForTable";
 
 interface Props {
@@ -27,10 +23,6 @@ interface Props {
 
 export const AwardsTable: React.FC<Props> = ({ arr }) => {
   const [visible, setVisible] = useState(false);
-
-  const [name, setName] = useState("");
-  const [date, setDate] = useState("");
-  const [activeIndex, setActiveIndex] = useState(-1);
 
   return (
     <Box>

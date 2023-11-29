@@ -1,5 +1,8 @@
 import { Box, Grid, GridItem, Image, Text } from "@chakra-ui/react";
 import React from "react";
+import { FormForTable } from "../FormForTable";
+import { updateGroup } from "../../http/groupAPI";
+import { SelectedForTable } from "../SelectedForTable";
 
 interface Props {
   arr: Group;
@@ -23,20 +26,49 @@ export const GroupTable: React.FC<Props> = ({ arr }) => {
           />
         </GridItem>
         <GridItem colSpan={6} colStart={2}>
-          <Text>{arr.group_name}</Text>
+          <Text align={"center"} fontSize={"xl"} as={"b"}>
+            <FormForTable
+              id={arr.id}
+              item={arr.group_name}
+              update_col="group_name"
+              updateFunc={updateGroup}
+            />
+          </Text>
         </GridItem>
         <GridItem colSpan={2}>
-          <Text>Стиль музыки: {arr["music_style.style_name"]}</Text>
+          <SelectedForTable
+            id={arr.id}
+            item={String(arr["music_style.style_name"])}
+            update_col="music_style_id"
+            updateFunc={updateGroup}
+          />
         </GridItem>
 
         <GridItem colSpan={2}>
-          <Text>Год основания: {arr.creation_year}</Text>
+          Год создания:
+          <FormForTable
+            id={arr.id}
+            item={String(arr.creation_year)}
+            update_col="creation_year"
+            updateFunc={updateGroup}
+          />
         </GridItem>
         <GridItem colSpan={2}>
-          <Text>Город: {arr["city.city_name"]}</Text>
+          <SelectedForTable
+            id={arr.id}
+            item={String(arr["city.city_name"])}
+            update_col="city_id"
+            updateFunc={updateGroup}
+          />
         </GridItem>
         <GridItem colSpan={6} colStart={2} rowSpan={3}>
-          <Text> {arr.description}</Text>
+          <FormForTable
+            id={arr.id}
+            item={arr.description}
+            update_col="description"
+            updateFunc={updateGroup}
+            style={{ width: "74em", height: "5em" }}
+          />
         </GridItem>
       </Grid>
     </Box>

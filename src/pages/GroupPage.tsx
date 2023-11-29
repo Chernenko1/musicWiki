@@ -30,6 +30,7 @@ import { GroupTable } from "../components/Tables/GroupTable";
 export const GroupPage = () => {
   const { id } = useParams();
   const [group, setGroup] = useState<Group>({
+    id: 0,
     group_name: "",
     creation_year: 0,
     description: "",

@@ -83,6 +83,7 @@ declare interface Concert {
 }
 
 declare interface Group {
+  id: number;
   group_name: string;
   creation_year: number;
   description: string;

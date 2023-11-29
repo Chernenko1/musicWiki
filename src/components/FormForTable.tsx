@@ -33,7 +33,7 @@ export const FormForTable: React.FC<Props> = ({
           item === null || item.length === 0 ? "нет записи" : String(item)
         }
       >
-        <EditablePreview />
+        <EditablePreview noOfLines={3} />
         <EditableTextarea
           onChange={(e) => {
             setValue(e.target.value);

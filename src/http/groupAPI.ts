@@ -1,7 +1,6 @@
 import { $authHost } from "./index";
 
 export const createGroup = async (group: any) => {
-  console.log(group);
   const { data } = await $authHost.post("api/group", group);
   return data;
 };
@@ -15,6 +14,10 @@ export const fetchGroups = async () => {
 export const fetchOneGroup = async (id: any) => {
   const { data } = await $authHost.get("api/group/" + id);
   return data;
+};
+
+export const updateGroup = async (id: any, param: any) => {
+  await $authHost.put("api/group/" + id, param);
 };
 
 export const destroyGroup = async (id: any) => {

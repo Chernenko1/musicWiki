@@ -20,3 +20,7 @@ export const fetchAllAlbums = async () => {
 export const updateAlbum = async (id: any, param: any) => {
   await $authHost.put("api/albums/" + id, param);
 };
+
+export const destroyAlbum = async (id: any) => {
+  await $authHost.delete("api/albums", { data: id });
+};

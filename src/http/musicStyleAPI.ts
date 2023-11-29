@@ -10,3 +10,7 @@ export const fetchMusicS = async () => {
   const { data } = await $authHost.get("api/musicstyle");
   return data;
 };
+
+export const destroyMusicS = async (id: any) => {
+  await $authHost.delete("api/musicStyle", { data: id });
+};

@@ -14,6 +14,10 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { CreateSong } from "../modals/CreateSong";
+import { FormForTable } from "../FormForTable";
+import { destroySong, updateSong } from "../../http/songAPI";
+import { SelectedForTable } from "../SelectedForTable";
+import { IoTrashBinOutline } from "react-icons/io5";
 
 interface Props {
   arr: Song[];
@@ -42,9 +46,42 @@ export const SongTable: React.FC<Props> = ({ arr }) => {
           <Tbody>
             {arr.map((itm: Song) => (
               <Tr key={itm.id}>
-                <Td width={"20%"}>{itm.song_name}</Td>
-                <Td width={"20%"}>{itm["music_style.style_name"]}</Td>
-                <Td width={"60%"}>{itm.lyrics}</Td>
+                <Td width={"20%"}>
+                  <FormForTable
+                    id={itm.id}
+                    item={itm.song_name}
+                    update_col="song_name"
+                    updateFunc={updateSong}
+                    delFunc={destroySong}
+                  />
+                </Td>
+                <Td width={"20%"}>
+                  <SelectedForTable
+                    id={itm.id}
+                    item={String(itm["music_style.style_name"])}
+                    update_col="music_style_id"
+                    updateFunc={updateSong}
+                    delFunc={destroySong}
+                  />
+                </Td>
+                <Td width={"60%"}>
+                  <FormForTable
+                    id={itm.id}
+                    item={itm.lyrics}
+                    update_col="lyrics"
+                    updateFunc={updateSong}
+                    delFunc={destroySong}
+                  />
+                </Td>
+                <Td>
+                  <Button
+                    size={"xs"}
+                    bgColor={"indianred"}
+                    onClick={() => destroySong({ id: itm.id })}
+                  >
+                    <IoTrashBinOutline />
+                  </Button>
+                </Td>
               </Tr>
             ))}
           </Tbody>

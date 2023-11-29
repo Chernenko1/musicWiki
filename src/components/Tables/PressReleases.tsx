@@ -21,6 +21,7 @@ import { CreatePR } from "../modals/CreatePR";
 
 import { IoCheckmark, IoTrashBinOutline } from "react-icons/io5";
 import { destroyPr, updatePr } from "../../http/prAPI";
+import { FormForTable } from "../FormForTable";
 
 interface Props {
   arr: PR[];
@@ -58,95 +59,41 @@ export const PressReleasesTable: React.FC<Props> = ({ arr }) => {
             {arr.map((itm: PR) => (
               <Tr key={itm.id}>
                 <Td width={"20%"}>
-                  <Flex alignItems={"center"} justifyContent={"space-between"}>
-                    <Editable defaultValue={itm.headline}>
-                      <EditablePreview />
-                      <EditableTextarea
-                        onChange={(e) => setHeadline(e.target.value)}
-                      />
-                    </Editable>
-                    <Button
-                      size={"xs"}
-                      p={0}
-                      bgColor={"lightgreen"}
-                      onClick={() => {
-                        updatePr(itm.id, { headline });
-                        setHeadline("");
-                      }}
-                      isDisabled={headline.length === 0 ? true : false}
-                    >
-                      <IoCheckmark size={10} />
-                    </Button>
-                  </Flex>
+                  <FormForTable
+                    id={itm.id}
+                    item={itm.headline}
+                    update_col="headline"
+                    updateFunc={updatePr}
+                    delFunc={destroyPr}
+                  />
                 </Td>
                 <Td width={"10%"}>
-                  <Flex alignItems={"center"} justifyContent={"space-between"}>
-                    <Editable defaultValue={itm.public_date}>
-                      <EditablePreview defaultValue={itm.public_date} />
-                      <EditableTextarea
-                        onChange={(e) => setPublicDate(e.target.value)}
-                      />
-                    </Editable>
-                    <Button
-                      size={"xs"}
-                      p={0}
-                      bgColor={"lightgreen"}
-                      onClick={() => {
-                        updatePr(itm.id, { public_date: publicDate });
-                        setPublicDate("");
-                      }}
-                      isDisabled={publicDate.length === 0 ? true : false}
-                    >
-                      <IoCheckmark size={10} />
-                    </Button>
-                  </Flex>
+                  <FormForTable
+                    id={itm.id}
+                    item={itm.public_date}
+                    update_col="public_date"
+                    updateFunc={updatePr}
+                    delFunc={destroyPr}
+                  />
                 </Td>
 
                 <Td width={"50%"}>
-                  <Flex alignItems={"center"} justifyContent={"space-between"}>
-                    <Editable defaultValue={itm.text}>
-                      <EditablePreview />
-                      <EditableTextarea
-                        onChange={(e) => setText(e.target.value)}
-                        width={"40vw"}
-                      />
-                    </Editable>
-                    <Button
-                      size={"xs"}
-                      p={0}
-                      bgColor={"lightgreen"}
-                      onClick={() => {
-                        updatePr(itm.id, { text });
-                        setText("");
-                      }}
-                      isDisabled={text.length === 0 ? true : false}
-                    >
-                      <IoCheckmark size={10} />
-                    </Button>
-                  </Flex>
+                  <FormForTable
+                    id={itm.id}
+                    item={itm.text}
+                    update_col="text"
+                    updateFunc={updatePr}
+                    delFunc={destroyPr}
+                  />
                 </Td>
-                <Td width={"10%"}>
-                  <Flex gap={2}>
-                    {/* <Button
-                      onClick={() =>
-                        updatePr(itm.id, {
-                          headline,
-                          public_date: publicDate,
-                          text,
-                        })
-                      }
-                      bgColor={"lightgreen"}
-                      disabled
-                    >
-                      <IoCheckmark size={20} />
-                    </Button> */}
-                    <Button
-                      onClick={() => destroyPr({ id: itm.id })}
-                      bgColor={"indianred"}
-                    >
-                      <IoTrashBinOutline size={20} />
-                    </Button>
-                  </Flex>
+                <Td>
+                  <Button
+                    size={"xs"}
+                    bgColor={"indianred"}
+                    onClick={() => destroyPr({ id: itm.id })}
+                  >
+                    <IoTrashBinOutline />
+                  </Button>
                 </Td>
               </Tr>
             ))}

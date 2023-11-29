@@ -17,8 +17,9 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { CreateAward } from "../modals/CreateAward";
-import { updateAward } from "../../http/awardsAPI";
-import { IoCheckmark, IoClose } from "react-icons/io5";
+import { destroyAward, updateAward } from "../../http/awardsAPI";
+import { IoCheckmark, IoClose, IoTrashBinOutline } from "react-icons/io5";
+import { FormForTable } from "../FormForTable";
 
 interface Props {
   arr: Award[];
@@ -51,104 +52,31 @@ export const AwardsTable: React.FC<Props> = ({ arr }) => {
             {arr.map((itm: Award, index: number) => (
               <Tr key={itm.id}>
                 <Td>
-                  <Flex>
-                    <Editable
-                      defaultValue={
-                        itm.award_name === null || itm.award_name.length === 0
-                          ? "нет записи"
-                          : itm.award_name
-                      }
-                    >
-                      <EditablePreview />
-                      <EditableTextarea
-                        onChange={(e) => {
-                          setName(e.target.value);
-                        }}
-                        onFocus={() => setActiveIndex(index)}
-                      />
-                    </Editable>
-                    <Button
-                      size={"xs"}
-                      p={0}
-                      bgColor={"lightgreen"}
-                      onClick={() => {
-                        updateAward(itm.id, { award_name: name });
-                        setName("");
-                      }}
-                      style={{
-                        display:
-                          name.length === 0 || activeIndex !== index
-                            ? "none"
-                            : "",
-                      }}
-                    >
-                      <IoCheckmark size={10} />
-                    </Button>
-                    <Button
-                      size={"xs"}
-                      p={0}
-                      bgColor={"indianred"}
-                      onClick={() => setName("")}
-                      style={{
-                        display:
-                          name.length === 0 || activeIndex !== index
-                            ? "none"
-                            : "",
-                      }}
-                    >
-                      <IoClose size={10} />
-                    </Button>
-                  </Flex>
+                  <FormForTable
+                    id={itm.id}
+                    item={itm.award_name}
+                    update_col="award_name"
+                    updateFunc={updateAward}
+                    delFunc={destroyAward}
+                  />
                 </Td>
                 <Td>
-                  <Flex>
-                    <Editable
-                      defaultValue={
-                        itm.date === null || itm.date.length === 0
-                          ? "нет записи"
-                          : itm.date
-                      }
-                    >
-                      <EditablePreview />
-                      <EditableTextarea
-                        onChange={(e) => {
-                          setDate(e.target.value);
-                        }}
-                        onFocus={() => setActiveIndex(index)}
-                      />
-                    </Editable>
-                    <Button
-                      size={"xs"}
-                      p={0}
-                      bgColor={"lightgreen"}
-                      onClick={() => {
-                        updateAward(itm.id, { date });
-                        setDate("");
-                      }}
-                      style={{
-                        display:
-                          date.length === 0 || activeIndex !== index
-                            ? "none"
-                            : "",
-                      }}
-                    >
-                      <IoCheckmark size={10} />
-                    </Button>
-                    <Button
-                      size={"xs"}
-                      p={0}
-                      bgColor={"indianred"}
-                      onClick={() => setDate("")}
-                      style={{
-                        display:
-                          date.length === 0 || activeIndex !== index
-                            ? "none"
-                            : "",
-                      }}
-                    >
-                      <IoClose size={10} />
-                    </Button>
-                  </Flex>
+                  <FormForTable
+                    id={itm.id}
+                    item={itm.date}
+                    update_col="date"
+                    updateFunc={updateAward}
+                    delFunc={destroyAward}
+                  />
+                </Td>
+                <Td>
+                  <Button
+                    size={"xs"}
+                    bgColor={"indianred"}
+                    onClick={() => destroyAward({ id: itm.id })}
+                  >
+                    <IoTrashBinOutline />
+                  </Button>
                 </Td>
               </Tr>
             ))}

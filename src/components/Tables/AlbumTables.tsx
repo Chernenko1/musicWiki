@@ -18,9 +18,9 @@ import {
   Select,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
-import { updateAlbum } from "../../http/albumAPI";
+import { destroyAlbum, updateAlbum } from "../../http/albumAPI";
 import { CreateAlbum } from "../modals/CreateAlbum";
-import { IoCheckmark, IoClose } from "react-icons/io5";
+import { IoCheckmark, IoClose, IoTrashBinOutline } from "react-icons/io5";
 import { useAppSelector } from "../../store/hooks";
 import { FormForTable } from "../FormForTable";
 import { SelectedForTable } from "../SelectedForTable";
@@ -62,7 +62,8 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
                     item={itm.album_name}
                     id={itm.id}
                     update_col="album_name"
-                    func={updateAlbum}
+                    updateFunc={updateAlbum}
+                    delFunc={destroyAlbum}
                   />
                 </Td>
                 <Td width={"10%"}>
@@ -70,7 +71,8 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
                     id={itm.id}
                     item={String(itm.release_year)}
                     update_col="release_year"
-                    func={updateAlbum}
+                    updateFunc={updateAlbum}
+                    delFunc={destroyAlbum}
                   />
                 </Td>
                 <Td width={"10%"}>
@@ -78,7 +80,8 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
                     id={itm.id}
                     item={String(itm.album_sales)}
                     update_col="album_sales"
-                    func={updateAlbum}
+                    updateFunc={updateAlbum}
+                    delFunc={destroyAlbum}
                   />
                 </Td>
                 <Td width={"11%"}>
@@ -86,7 +89,8 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
                     id={itm.id}
                     item={String(itm["music_style.style_name"])}
                     update_col="music_style_id"
-                    func={updateAlbum}
+                    updateFunc={updateAlbum}
+                    delFunc={destroyAlbum}
                   />
                 </Td>
                 <Td width={"50%"}>
@@ -94,8 +98,18 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
                     id={itm.id}
                     item={String(itm.description)}
                     update_col="description"
-                    func={updateAlbum}
+                    updateFunc={updateAlbum}
+                    delFunc={destroyAlbum}
                   />
+                </Td>
+                <Td>
+                  <Button
+                    size={"xs"}
+                    bgColor={"indianred"}
+                    onClick={() => destroyAlbum({ id: itm.id })}
+                  >
+                    <IoTrashBinOutline />
+                  </Button>
                 </Td>
               </Tr>
             ))}

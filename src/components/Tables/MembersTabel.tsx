@@ -17,7 +17,8 @@ import { CreateMember } from "../modals/CreateMember";
 import { FormForTable } from "../FormForTable";
 import { SelectedForTable } from "../SelectedForTable";
 import { updateAlbum } from "../../http/albumAPI";
-import { updateBandMember } from "../../http/bandMembers";
+import { destroyBandMember, updateBandMember } from "../../http/bandMembers";
+import { IoTrashBinOutline } from "react-icons/io5";
 
 interface Props {
   arr: BandMember[];
@@ -55,7 +56,8 @@ export const MembersTable: React.FC<Props> = ({ arr }) => {
                     id={itm.id}
                     item={itm.first_name}
                     update_col="first_name"
-                    func={updateBandMember}
+                    updateFunc={updateBandMember}
+                    delFunc={destroyBandMember}
                   />
                 </Td>
                 <Td width={"10%"}>
@@ -63,7 +65,8 @@ export const MembersTable: React.FC<Props> = ({ arr }) => {
                     id={itm.id}
                     item={itm.last_name}
                     update_col="last_name"
-                    func={updateBandMember}
+                    updateFunc={updateBandMember}
+                    delFunc={destroyBandMember}
                   />
                 </Td>
                 <Td width={"10%"}>
@@ -71,7 +74,8 @@ export const MembersTable: React.FC<Props> = ({ arr }) => {
                     id={itm.id}
                     item={String(itm["role.role_name"])}
                     update_col="role_name"
-                    func={updateBandMember}
+                    updateFunc={updateBandMember}
+                    delFunc={destroyBandMember}
                   />
                 </Td>
 
@@ -81,9 +85,19 @@ export const MembersTable: React.FC<Props> = ({ arr }) => {
                       id={itm.id}
                       item={itm.biography}
                       update_col="biography"
-                      func={updateBandMember}
+                      updateFunc={updateBandMember}
+                      delFunc={destroyBandMember}
                     />
                   </Text>
+                </Td>
+                <Td>
+                  <Button
+                    size={"xs"}
+                    bgColor={"indianred"}
+                    onClick={() => destroyBandMember({ id: itm.id })}
+                  >
+                    <IoTrashBinOutline />
+                  </Button>
                 </Td>
               </Tr>
             ))}

@@ -11,14 +11,16 @@ interface Props {
   item: null | string;
   id: number;
   update_col: string;
-  func: any;
+  updateFunc: any;
+  delFunc: any;
 }
 
 export const FormForTable: React.FC<Props> = ({
   id,
   item,
   update_col,
-  func,
+  updateFunc,
+  delFunc,
 }) => {
   const [value, setValue] = useState<any>("");
 
@@ -41,7 +43,7 @@ export const FormForTable: React.FC<Props> = ({
         p={0}
         bgColor={"lightgreen"}
         onClick={() => {
-          func(id, { [update_col]: value });
+          updateFunc(id, { [update_col]: value });
           setValue("");
         }}
         style={{

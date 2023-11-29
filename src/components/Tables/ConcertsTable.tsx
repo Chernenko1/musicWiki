@@ -16,9 +16,10 @@ import React, { useEffect, useState } from "react";
 import { fetchRoles } from "../../http/roleAPI";
 import { CreateConcerts } from "../modals/CreateCT";
 import { FormForTable } from "../FormForTable";
-import { updateConcert } from "../../http/concertAPI";
+import { destroyConcert, updateConcert } from "../../http/concertAPI";
 import { SelectedForTable } from "../SelectedForTable";
-import { updateConcTickets } from "../../http/concTickets";
+import { destroyConcTickets, updateConcTickets } from "../../http/concTickets";
+import { IoTrashBinOutline } from "react-icons/io5";
 
 interface Props {
   arr: Concert[];
@@ -55,7 +56,8 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
                     id={itm.id}
                     item={itm.concert_name}
                     update_col="concert_name"
-                    func={updateConcert}
+                    updateFunc={updateConcert}
+                    delFunc={destroyConcert}
                   />
                 </Td>
                 <Td>
@@ -63,7 +65,8 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
                     id={itm.id}
                     item={String(itm["city.city_name"])}
                     update_col="city_id"
-                    func={updateConcert}
+                    updateFunc={updateConcert}
+                    delFunc={destroyConcert}
                   />
                 </Td>
                 <Td>
@@ -71,7 +74,8 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
                     id={itm.id}
                     item={itm.date}
                     update_col="date"
-                    func={updateConcert}
+                    updateFunc={updateConcert}
+                    delFunc={destroyConcert}
                   />
                 </Td>
                 <Td>
@@ -79,7 +83,8 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
                     id={itm.sold_tickets_id}
                     item={String(itm["concert_ticket.price"])}
                     update_col="price"
-                    func={updateConcTickets}
+                    updateFunc={updateConcTickets}
+                    delFunc={destroyConcTickets}
                   />
                 </Td>
                 <Td>
@@ -87,7 +92,8 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
                     id={itm.sold_tickets_id}
                     item={String(itm["concert_ticket.sale_date"])}
                     update_col="sale_date"
-                    func={updateConcTickets}
+                    updateFunc={updateConcTickets}
+                    delFunc={destroyConcTickets}
                   />
                 </Td>
                 <Td>
@@ -95,8 +101,18 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
                     id={itm.sold_tickets_id}
                     item={String(itm["concert_ticket.sold_tickets"])}
                     update_col="sold_tickets"
-                    func={updateConcTickets}
+                    updateFunc={updateConcTickets}
+                    delFunc={destroyConcTickets}
                   />
+                </Td>
+                <Td>
+                  <Button
+                    size={"xs"}
+                    bgColor={"indianred"}
+                    onClick={() => destroyConcert({ id: itm.id })}
+                  >
+                    <IoTrashBinOutline />
+                  </Button>
                 </Td>
               </Tr>
             ))}

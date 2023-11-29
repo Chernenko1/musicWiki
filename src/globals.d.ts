@@ -81,3 +81,11 @@ declare interface Concert {
   "concert_ticket.sale_date"?: string;
   "city.city_name"?: string;
 }
+
+declare interface Group {
+  group_name: string;
+  creation_year: number;
+  description: string;
+  "city.city_name"?: string;
+  "music_style.style_name"?: string;
+}

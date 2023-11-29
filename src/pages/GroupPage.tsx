@@ -29,12 +29,7 @@ import { GroupTable } from "../components/Tables/GroupTable";
 
 export const GroupPage = () => {
   const { id } = useParams();
-  const [group, setGroup] = useState<Group>({
-    id: 0,
-    group_name: "",
-    creation_year: 0,
-    description: "",
-  });
+  const [group, setGroup] = useState<Group>();
   const [albums, setAlbums] = useState<Album[]>([]);
   const [members, setMembers] = useState<BandMember[]>([]);
   const [conserts, setConcerts] = useState<Concert[]>([]);
@@ -60,8 +55,6 @@ export const GroupPage = () => {
     });
     fetchMusicS().then((data) => dispatch(setMusicStyle(data.musicStyle)));
   }, []);
-
-  console.log(group);
 
   return (
     <Box className={styles.container}>

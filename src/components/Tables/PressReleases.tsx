@@ -29,13 +29,6 @@ interface Props {
 
 export const PressReleasesTable: React.FC<Props> = ({ arr }) => {
   const [visible, setVisible] = useState(false);
-
-  const [headline, setHeadline] = useState("");
-  const [publicDate, setPublicDate] = useState("");
-  const [text, setText] = useState("");
-
-  console.log(text.length);
-
   return (
     <Box>
       <TableContainer

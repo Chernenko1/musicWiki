@@ -1,8 +1,6 @@
 import { Button, Flex, Select } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { IoCheckmark } from "react-icons/io5";
-import { updateAlbum } from "../http/albumAPI";
-import { useAppSelector } from "../store/hooks";
 
 interface Props {
   item: null | string;
@@ -10,6 +8,7 @@ interface Props {
   update_col: string;
   updateFunc: any;
   delFunc?: any;
+  children?: React.ReactNode;
 }
 
 export const SelectedForTable: React.FC<Props> = ({
@@ -18,10 +17,11 @@ export const SelectedForTable: React.FC<Props> = ({
   update_col,
   updateFunc,
   delFunc,
+  children,
 }) => {
   const [value, setValue] = useState<any>("");
 
-  const mus = useAppSelector((state) => state.groups.musicStyleData);
+  console.log(value);
 
   return (
     <Flex alignItems={"center"} justifyContent={"space-between"}>
@@ -32,9 +32,7 @@ export const SelectedForTable: React.FC<Props> = ({
             setValue(e.target.value);
           }}
         >
-          {mus.map((itm) => (
-            <option value={itm.id}>{itm.style_name}</option>
-          ))}
+          {children}
         </Select>
       }
       <Button

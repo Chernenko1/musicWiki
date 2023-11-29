@@ -18,6 +18,7 @@ import { FormForTable } from "../FormForTable";
 import { destroySong, updateSong } from "../../http/songAPI";
 import { SelectedForTable } from "../SelectedForTable";
 import { IoTrashBinOutline } from "react-icons/io5";
+import { useAppSelector } from "../../store/hooks";
 
 interface Props {
   arr: Song[];
@@ -25,6 +26,7 @@ interface Props {
 
 export const SongTable: React.FC<Props> = ({ arr }) => {
   const [visible, setVisible] = useState(false);
+  const music = useAppSelector((state) => state.groups.musicStyleData);
 
   return (
     <Box>
@@ -61,8 +63,11 @@ export const SongTable: React.FC<Props> = ({ arr }) => {
                     item={String(itm["music_style.style_name"])}
                     update_col="music_style_id"
                     updateFunc={updateSong}
-                    delFunc={destroySong}
-                  />
+                  >
+                    {music.map((item) => (
+                      <option value={item.id}>{item.style_name}</option>
+                    ))}
+                  </SelectedForTable>
                 </Td>
                 <Td width={"60%"}>
                   <FormForTable

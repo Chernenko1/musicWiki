@@ -16,9 +16,9 @@ import React, { useEffect, useState } from "react";
 import { CreateMember } from "../modals/CreateMember";
 import { FormForTable } from "../FormForTable";
 import { SelectedForTable } from "../SelectedForTable";
-import { updateAlbum } from "../../http/albumAPI";
 import { destroyBandMember, updateBandMember } from "../../http/bandMembers";
 import { IoTrashBinOutline } from "react-icons/io5";
+import { useAppSelector } from "../../store/hooks";
 
 interface Props {
   arr: BandMember[];
@@ -26,6 +26,8 @@ interface Props {
 
 export const MembersTable: React.FC<Props> = ({ arr }) => {
   const [memberVisible, setMemberVisible] = useState(false);
+
+  const roles = useAppSelector((state) => state.groups.roles);
 
   return (
     <Box>
@@ -66,17 +68,19 @@ export const MembersTable: React.FC<Props> = ({ arr }) => {
                     item={itm.last_name}
                     update_col="last_name"
                     updateFunc={updateBandMember}
-                    delFunc={destroyBandMember}
                   />
                 </Td>
                 <Td width={"20%"}>
                   <SelectedForTable
                     id={itm.id}
                     item={String(itm["role.role_name"])}
-                    update_col="role_name"
+                    update_col="role_id"
                     updateFunc={updateBandMember}
-                    delFunc={destroyBandMember}
-                  />
+                  >
+                    {roles.map((item) => (
+                      <option value={item.id}>{item.role_name}</option>
+                    ))}
+                  </SelectedForTable>
                 </Td>
 
                 <Td width={"60%"}>

@@ -19,6 +19,7 @@ import { destroyConcert, updateConcert } from "../../http/concertAPI";
 import { SelectedForTable } from "../SelectedForTable";
 import { destroyConcTickets, updateConcTickets } from "../../http/concTickets";
 import { IoTrashBinOutline } from "react-icons/io5";
+import { useAppSelector } from "../../store/hooks";
 
 interface Props {
   arr: Concert[];
@@ -26,6 +27,8 @@ interface Props {
 
 export const ConcertsTable: React.FC<Props> = ({ arr }) => {
   const [visible, setVisible] = useState(false);
+
+  const city = useAppSelector((state) => state.groups.cities);
 
   return (
     <Box>
@@ -56,7 +59,6 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
                     item={itm.concert_name}
                     update_col="concert_name"
                     updateFunc={updateConcert}
-                    delFunc={destroyConcert}
                   />
                 </Td>
                 <Td>
@@ -65,8 +67,11 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
                     item={String(itm["city.city_name"])}
                     update_col="city_id"
                     updateFunc={updateConcert}
-                    delFunc={destroyConcert}
-                  />
+                  >
+                    {city.map((item) => (
+                      <option value={item.id}>{item.city_name}</option>
+                    ))}
+                  </SelectedForTable>
                 </Td>
                 <Td>
                   <FormForTable
@@ -74,7 +79,6 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
                     item={itm.date}
                     update_col="date"
                     updateFunc={updateConcert}
-                    delFunc={destroyConcert}
                   />
                 </Td>
                 <Td>

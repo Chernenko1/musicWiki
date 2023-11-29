@@ -1,26 +1,20 @@
 import {
   Box,
-  Editable,
-  EditablePreview,
   Table,
   TableCaption,
   TableContainer,
   Tbody,
   Td,
-  Text,
   Tfoot,
   Th,
   Thead,
   Tr,
-  Flex,
   Button,
-  EditableTextarea,
-  Select,
 } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { destroyAlbum, updateAlbum } from "../../http/albumAPI";
 import { CreateAlbum } from "../modals/CreateAlbum";
-import { IoCheckmark, IoClose, IoTrashBinOutline } from "react-icons/io5";
+import { IoTrashBinOutline } from "react-icons/io5";
 import { useAppSelector } from "../../store/hooks";
 import { FormForTable } from "../FormForTable";
 import { SelectedForTable } from "../SelectedForTable";
@@ -32,6 +26,8 @@ interface Props {
 
 export const AlbumTable: React.FC<Props> = ({ arr }) => {
   const [albumVisible, setAlbumVisible] = useState(false);
+
+  const music = useAppSelector((state) => state.groups.musicStyleData);
 
   return (
     <Box>
@@ -89,7 +85,11 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
                     item={String(itm["music_style.style_name"])}
                     update_col="music_style_id"
                     updateFunc={updateAlbum}
-                  />
+                  >
+                    {music.map((item) => (
+                      <option value={item.id}>{item.style_name}</option>
+                    ))}
+                  </SelectedForTable>
                 </Td>
                 <Td width={"50%"}>
                   <FormForTable

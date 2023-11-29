@@ -3,12 +3,15 @@ import React from "react";
 import { FormForTable } from "../FormForTable";
 import { updateGroup } from "../../http/groupAPI";
 import { SelectedForTable } from "../SelectedForTable";
+import { useAppSelector } from "../../store/hooks";
 
 interface Props {
   arr: Group;
 }
 
 export const GroupTable: React.FC<Props> = ({ arr }) => {
+  const { cities, musicStyleData } = useAppSelector((state) => state.groups);
+
   return (
     <Box>
       <Grid
@@ -41,7 +44,11 @@ export const GroupTable: React.FC<Props> = ({ arr }) => {
             item={String(arr["music_style.style_name"])}
             update_col="music_style_id"
             updateFunc={updateGroup}
-          />
+          >
+            {musicStyleData.map((item) => (
+              <option value={item.id}>{item.style_name}</option>
+            ))}
+          </SelectedForTable>
         </GridItem>
 
         <GridItem colSpan={2}>
@@ -59,7 +66,11 @@ export const GroupTable: React.FC<Props> = ({ arr }) => {
             item={String(arr["city.city_name"])}
             update_col="city_id"
             updateFunc={updateGroup}
-          />
+          >
+            {cities.map((item) => (
+              <option value={item.id}>{item.city_name}</option>
+            ))}
+          </SelectedForTable>
         </GridItem>
         <GridItem colSpan={6} colStart={2} rowSpan={3}>
           <FormForTable

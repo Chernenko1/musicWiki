@@ -4,8 +4,8 @@ import { RootState } from "../store";
 interface GroupsState {
   groupsData: [];
   musicStyleData: MusicStyles[];
-  roles: [];
-  cities: [];
+  roles: Roles[];
+  cities: City[];
   bandMembers: [];
   albums: [];
   songs: [];

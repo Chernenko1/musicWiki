@@ -1,22 +1,19 @@
-import {
-  Box,
-  Container,
-  Flex,
-  Spacer,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import { Box, Container, Flex, Spacer, Text } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
 import { CreateGroup } from "../components/modals/CreateGroup";
-import { CreateAlbum } from "../components/modals/CreateAlbum";
 import { fetchGroups } from "../http/groupAPI";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { setGroups, setMusicStyle } from "../store/slices/groupSlice";
 import { fetchMusicS } from "../http/musicStyleAPI";
+import { CreateCity } from "../components/modals/CreateCity";
+import { CreateMusicStyle } from "../components/modals/CreateMStyle";
+import { CreateRole } from "../components/modals/CreateRole";
 
 export const Create = () => {
   const [groupVisible, setGroupVisible] = useState(false);
-  const [albumVisible, setAlbumVisible] = useState(false);
+  const [cityVisible, setcityVisible] = useState(false);
+  const [roleVisible, setRoleVisible] = useState(false);
+  const [msVisible, setmsVisible] = useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -24,7 +21,6 @@ export const Create = () => {
     fetchGroups().then((data) => {
       dispatch(setGroups(data.groups.rows));
     });
-    fetchMusicS().then((data) => dispatch(setMusicStyle(data.musicStyle)));
   }, []);
 
   return (
@@ -51,19 +47,45 @@ export const Create = () => {
           justifyContent={"center"}
           marginTop={10}
           cursor={"pointer"}
-          onClick={() => setAlbumVisible(true)}
+          onClick={() => setcityVisible(true)}
         >
-          <Text className="">Создать новый альбом</Text>
+          <Text className="">Создать новый город</Text>
+        </Box>
+        <Box
+          display={"flex"}
+          bg={"lightgray"}
+          w={"100%"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          marginTop={10}
+          cursor={"pointer"}
+          onClick={() => setRoleVisible(true)}
+        >
+          <Text className="">Создать новую роль</Text>
+        </Box>
+        <Box
+          display={"flex"}
+          bg={"lightgray"}
+          w={"100%"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          marginTop={10}
+          cursor={"pointer"}
+          onClick={() => setmsVisible(true)}
+        >
+          <Text className="">Создать новый музыкальный стиль</Text>
         </Box>
       </Flex>
       <CreateGroup
         isOpen={groupVisible}
         onClose={() => setGroupVisible(false)}
       />
-      <CreateAlbum
-        isOpen={albumVisible}
-        onClose={() => setAlbumVisible(false)}
+      <CreateCity isOpen={cityVisible} onClose={() => setcityVisible(false)} />
+      <CreateMusicStyle
+        isOpen={msVisible}
+        onClose={() => setmsVisible(false)}
       />
+      <CreateRole isOpen={roleVisible} onClose={() => setRoleVisible(false)} />
     </Container>
   );
 };

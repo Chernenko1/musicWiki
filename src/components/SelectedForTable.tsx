@@ -21,8 +21,6 @@ export const SelectedForTable: React.FC<Props> = ({
 }) => {
   const [value, setValue] = useState<any>("");
 
-  console.log(value);
-
   return (
     <Flex alignItems={"center"} justifyContent={"space-between"}>
       {

@@ -57,7 +57,7 @@ export const AwardsTable: React.FC<Props> = ({ arr }) => {
                     item={itm.award_name}
                     update_col="award_name"
                     updateFunc={updateAward}
-                    delFunc={destroyAward}
+                    style={{ width: "15em", height: "5em" }}
                   />
                 </Td>
                 <Td>
@@ -66,7 +66,6 @@ export const AwardsTable: React.FC<Props> = ({ arr }) => {
                     item={itm.date}
                     update_col="date"
                     updateFunc={updateAward}
-                    delFunc={destroyAward}
                   />
                 </Td>
                 <Td>

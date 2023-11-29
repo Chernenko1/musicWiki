@@ -83,7 +83,7 @@ export const PressReleasesTable: React.FC<Props> = ({ arr }) => {
                     item={itm.text}
                     update_col="text"
                     updateFunc={updatePr}
-                    delFunc={destroyPr}
+                    style={{ width: "40em", height: "8em" }}
                   />
                 </Td>
                 <Td>

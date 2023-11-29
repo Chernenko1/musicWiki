@@ -81,7 +81,6 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
                     item={String(itm.album_sales)}
                     update_col="album_sales"
                     updateFunc={updateAlbum}
-                    delFunc={destroyAlbum}
                   />
                 </Td>
                 <Td width={"11%"}>
@@ -90,7 +89,6 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
                     item={String(itm["music_style.style_name"])}
                     update_col="music_style_id"
                     updateFunc={updateAlbum}
-                    delFunc={destroyAlbum}
                   />
                 </Td>
                 <Td width={"50%"}>
@@ -99,7 +97,7 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
                     item={String(itm.description)}
                     update_col="description"
                     updateFunc={updateAlbum}
-                    delFunc={destroyAlbum}
+                    style={{ width: "40em", height: "10em" }}
                   />
                 </Td>
                 <Td>

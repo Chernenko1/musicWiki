@@ -70,7 +70,7 @@ export const SongTable: React.FC<Props> = ({ arr }) => {
                     item={itm.lyrics}
                     update_col="lyrics"
                     updateFunc={updateSong}
-                    delFunc={destroySong}
+                    style={{ width: "40em", height: "10em" }}
                   />
                 </Td>
                 <Td>

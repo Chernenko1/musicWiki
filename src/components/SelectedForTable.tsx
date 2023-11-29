@@ -9,7 +9,7 @@ interface Props {
   id: number;
   update_col: string;
   updateFunc: any;
-  delFunc: any;
+  delFunc?: any;
 }
 
 export const SelectedForTable: React.FC<Props> = ({

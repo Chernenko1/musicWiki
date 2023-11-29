@@ -86,7 +86,7 @@ export const MembersTable: React.FC<Props> = ({ arr }) => {
                       item={itm.biography}
                       update_col="biography"
                       updateFunc={updateBandMember}
-                      delFunc={destroyBandMember}
+                      style={{ width: "40em", height: "10em" }}
                     />
                   </Text>
                 </Td>

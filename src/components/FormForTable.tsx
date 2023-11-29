@@ -12,7 +12,8 @@ interface Props {
   id: number;
   update_col: string;
   updateFunc: any;
-  delFunc: any;
+  delFunc?: any;
+  style?: { width: string; height: string };
 }
 
 export const FormForTable: React.FC<Props> = ({
@@ -21,6 +22,7 @@ export const FormForTable: React.FC<Props> = ({
   update_col,
   updateFunc,
   delFunc,
+  style,
 }) => {
   const [value, setValue] = useState<any>("");
 
@@ -36,6 +38,7 @@ export const FormForTable: React.FC<Props> = ({
           onChange={(e) => {
             setValue(e.target.value);
           }}
+          style={style}
         />
       </Editable>
       <Button

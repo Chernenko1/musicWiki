@@ -6,14 +6,13 @@ import {
   TableContainer,
   Tbody,
   Td,
-  Text,
   Tfoot,
   Th,
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { fetchRoles } from "../../http/roleAPI";
+import React, { useState } from "react";
+
 import { CreateConcerts } from "../modals/CreateCT";
 import { FormForTable } from "../FormForTable";
 import { destroyConcert, updateConcert } from "../../http/concertAPI";

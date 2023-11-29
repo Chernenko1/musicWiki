@@ -16,5 +16,5 @@ export const destroyPr = async (id: any) => {
 };
 
 export const updatePr = async (id: any, param: any) => {
-  await $authHost.put("api/pr/" + id, param);
+  await $authHost.put("api/pr/update/" + id, param);
 };

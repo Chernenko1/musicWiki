@@ -14,3 +14,7 @@ export const fetchConcTicketss = async () => {
 export const destroyConcTickets = async (id: any) => {
   await $authHost.delete("api/concTickets", { data: id });
 };
+
+export const updateConcTickets = async (id: any, param: any) => {
+  await $authHost.put("api/tickets/update/" + id, param);
+};

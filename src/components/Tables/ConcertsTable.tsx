@@ -15,6 +15,10 @@ import {
 import React, { useEffect, useState } from "react";
 import { fetchRoles } from "../../http/roleAPI";
 import { CreateConcerts } from "../modals/CreateCT";
+import { FormForTable } from "../FormForTable";
+import { updateConcert } from "../../http/concertAPI";
+import { SelectedForTable } from "../SelectedForTable";
+import { updateConcTickets } from "../../http/concTickets";
 
 interface Props {
   arr: Concert[];
@@ -46,12 +50,54 @@ export const ConcertsTable: React.FC<Props> = ({ arr }) => {
           <Tbody>
             {arr.map((itm: Concert) => (
               <Tr key={itm.id}>
-                <Td>{itm.concert_name}</Td>
-                <Td>{itm["city.city_name"]}</Td>
-                <Td>{itm.date}</Td>
-                <Td>{itm["concert_ticket.price"]}</Td>
-                <Td>{itm["concert_ticket.sale_date"]}</Td>
-                <Td>{itm["concert_ticket.sold_tickets"]}</Td>
+                <Td>
+                  <FormForTable
+                    id={itm.id}
+                    item={itm.concert_name}
+                    update_col="concert_name"
+                    func={updateConcert}
+                  />
+                </Td>
+                <Td>
+                  <SelectedForTable
+                    id={itm.id}
+                    item={String(itm["city.city_name"])}
+                    update_col="city_id"
+                    func={updateConcert}
+                  />
+                </Td>
+                <Td>
+                  <FormForTable
+                    id={itm.id}
+                    item={itm.date}
+                    update_col="date"
+                    func={updateConcert}
+                  />
+                </Td>
+                <Td>
+                  <FormForTable
+                    id={itm.sold_tickets_id}
+                    item={String(itm["concert_ticket.price"])}
+                    update_col="price"
+                    func={updateConcTickets}
+                  />
+                </Td>
+                <Td>
+                  <FormForTable
+                    id={itm.sold_tickets_id}
+                    item={String(itm["concert_ticket.sale_date"])}
+                    update_col="sale_date"
+                    func={updateConcTickets}
+                  />
+                </Td>
+                <Td>
+                  <FormForTable
+                    id={itm.sold_tickets_id}
+                    item={String(itm["concert_ticket.sold_tickets"])}
+                    update_col="sold_tickets"
+                    func={updateConcTickets}
+                  />
+                </Td>
               </Tr>
             ))}
           </Tbody>

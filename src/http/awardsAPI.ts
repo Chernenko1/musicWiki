@@ -16,5 +16,5 @@ export const destroyAward = async (id: any) => {
 };
 
 export const updateAward = async (id: any, param: any) => {
-  await $authHost.put("api/award/" + id, param);
+  await $authHost.put("api/award/update/" + id, param);
 };

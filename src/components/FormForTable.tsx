@@ -7,8 +7,6 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { IoCheckmark, IoClose } from "react-icons/io5";
-import { updateAlbum } from "../http/albumAPI";
-
 interface Props {
   item: null | string;
   id: number;
@@ -43,7 +41,7 @@ export const FormForTable: React.FC<Props> = ({
         p={0}
         bgColor={"lightgreen"}
         onClick={() => {
-          updateAlbum(id, { [update_col]: value });
+          func(id, { [update_col]: value });
           setValue("");
         }}
         style={{

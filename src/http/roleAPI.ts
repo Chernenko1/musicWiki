@@ -14,3 +14,7 @@ export const fetchRoles = async () => {
 export const destroyRole = async (id: any) => {
   await $authHost.delete("api/role", { data: id });
 };
+
+export const updateRole = async (id: any, param: any) => {
+  await $authHost.put("api/role/update/" + id, param);
+};

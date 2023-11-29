@@ -12,5 +12,5 @@ export const fetchLabelss = async () => {
 };
 
 export const destroyLabels = async (id: any) => {
-  await $authHost.delete("api/labels", { data: id });
+  await $authHost.delete("api/labels/update/", { data: id });
 };

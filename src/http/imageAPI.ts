@@ -12,5 +12,5 @@ export const fetchImages = async () => {
 };
 
 export const destroyImage = async (id: any) => {
-  await $authHost.delete("api/image", { data: id });
+  await $authHost.delete("api/image/update/", { data: id });
 };

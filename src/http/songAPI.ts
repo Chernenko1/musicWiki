@@ -14,3 +14,6 @@ export const fetchSongs = async (id: any) => {
 export const destroySong = async (id: any) => {
   await $authHost.delete("api/song", { data: id });
 };
+export const updateSong = async (id: any, param: any) => {
+  await $authHost.put("api/song/update/" + id, param);
+};

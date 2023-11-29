@@ -14,6 +14,10 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { CreateMember } from "../modals/CreateMember";
+import { FormForTable } from "../FormForTable";
+import { SelectedForTable } from "../SelectedForTable";
+import { updateAlbum } from "../../http/albumAPI";
+import { updateBandMember } from "../../http/bandMembers";
 
 interface Props {
   arr: BandMember[];
@@ -34,7 +38,7 @@ export const MembersTable: React.FC<Props> = ({ arr }) => {
               Добавить участника
             </Button>
           </TableCaption>
-          <Button></Button>
+
           <Thead>
             <Tr>
               <Th>Имя</Th>
@@ -46,13 +50,39 @@ export const MembersTable: React.FC<Props> = ({ arr }) => {
           <Tbody>
             {arr.map((itm: BandMember) => (
               <Tr key={itm.id}>
-                <Td width={"20%"}>{itm.first_name}</Td>
-                <Td width={"10%"}>{itm.last_name}</Td>
-                <Td width={"10%"}>{itm["role.role_name"]}</Td>
+                <Td width={"20%"}>
+                  <FormForTable
+                    id={itm.id}
+                    item={itm.first_name}
+                    update_col="first_name"
+                    func={updateBandMember}
+                  />
+                </Td>
+                <Td width={"10%"}>
+                  <FormForTable
+                    id={itm.id}
+                    item={itm.last_name}
+                    update_col="last_name"
+                    func={updateBandMember}
+                  />
+                </Td>
+                <Td width={"10%"}>
+                  <SelectedForTable
+                    id={itm.id}
+                    item={String(itm["role.role_name"])}
+                    update_col="role_name"
+                    func={updateBandMember}
+                  />
+                </Td>
 
                 <Td width={"60%"}>
                   <Text noOfLines={3} style={{ maxWidth: "" }}>
-                    {itm.biography}
+                    <FormForTable
+                      id={itm.id}
+                      item={itm.biography}
+                      update_col="biography"
+                      func={updateBandMember}
+                    />
                   </Text>
                 </Td>
               </Tr>

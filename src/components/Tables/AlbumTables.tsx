@@ -23,6 +23,7 @@ import { CreateAlbum } from "../modals/CreateAlbum";
 import { IoCheckmark, IoClose } from "react-icons/io5";
 import { useAppSelector } from "../../store/hooks";
 import { FormForTable } from "../FormForTable";
+import { SelectedForTable } from "../SelectedForTable";
 
 interface Props {
   arr: Album[];
@@ -30,17 +31,7 @@ interface Props {
 }
 
 export const AlbumTable: React.FC<Props> = ({ arr }) => {
-  const [value, setValue] = useState("");
-
   const [albumVisible, setAlbumVisible] = useState(false);
-  const [name, setName] = useState("");
-  const [releaseYear, setReleaseYear] = useState("");
-  const [description, setDescription] = useState("");
-  const [albumSales, setAlbumSales] = useState(0);
-  const [music, setMusic] = useState("");
-  const [activeIndex, setActiveIndex] = useState(-1);
-
-  const mus = useAppSelector((state) => state.groups.musicStyleData);
 
   return (
     <Box>
@@ -71,132 +62,40 @@ export const AlbumTable: React.FC<Props> = ({ arr }) => {
                     item={itm.album_name}
                     id={itm.id}
                     update_col="album_name"
+                    func={updateAlbum}
                   />
                 </Td>
                 <Td width={"10%"}>
-                  <Flex alignItems={"center"} justifyContent={"space-between"}>
-                    <Editable defaultValue={String(itm.release_year)}>
-                      <EditablePreview />
-                      <EditableTextarea
-                        onChange={(e) => {
-                          setReleaseYear(e.target.value);
-                        }}
-                        onFocus={() => setActiveIndex(index)}
-                      />
-                    </Editable>
-                    <Button
-                      size={"xs"}
-                      p={0}
-                      bgColor={"lightgreen"}
-                      onClick={() => {
-                        updateAlbum(itm.id, { release_year: +releaseYear });
-                        setReleaseYear("");
-                      }}
-                      style={{
-                        display:
-                          releaseYear.length === 0 || activeIndex !== index
-                            ? "none"
-                            : "",
-                      }}
-                    >
-                      <IoCheckmark size={10} />
-                    </Button>
-                  </Flex>
+                  <FormForTable
+                    id={itm.id}
+                    item={String(itm.release_year)}
+                    update_col="release_year"
+                    func={updateAlbum}
+                  />
                 </Td>
                 <Td width={"10%"}>
-                  <Flex alignItems={"center"} justifyContent={"space-between"}>
-                    <Editable defaultValue={String(itm.album_sales)}>
-                      <EditablePreview />
-                      <EditableTextarea
-                        onChange={(e) => setAlbumSales(+e.target.value)}
-                        width={"4em"}
-                        onFocus={() => setActiveIndex(index)}
-                      />
-                    </Editable>
-                    <Button
-                      size={"xs"}
-                      p={0}
-                      bgColor={"lightgreen"}
-                      onClick={() => {
-                        updateAlbum(itm.id, { album_sales: albumSales });
-                        setAlbumSales(0);
-                      }}
-                      style={{
-                        display:
-                          albumSales === 0 || activeIndex !== index
-                            ? "none"
-                            : "",
-                      }}
-                    >
-                      <IoCheckmark size={10} />
-                    </Button>
-                  </Flex>
+                  <FormForTable
+                    id={itm.id}
+                    item={String(itm.album_sales)}
+                    update_col="album_sales"
+                    func={updateAlbum}
+                  />
                 </Td>
                 <Td width={"11%"}>
-                  <Flex alignItems={"center"} justifyContent={"space-between"}>
-                    {
-                      <Select
-                        placeholder={itm["music_style.style_name"]}
-                        onChange={(e) => {
-                          setMusic(e.target.value);
-                          setActiveIndex(index);
-                        }}
-                      >
-                        {mus.map((itm) => (
-                          <option value={itm.id}>{itm.style_name}</option>
-                        ))}
-                      </Select>
-                    }
-                    <Button
-                      size={"xs"}
-                      p={0}
-                      bgColor={"lightgreen"}
-                      onClick={() => {
-                        updateAlbum(itm.id, { music_style_id: music });
-                        setMusic("");
-                      }}
-                      style={{
-                        display:
-                          music.length === 0 || activeIndex !== index
-                            ? "none"
-                            : "",
-                      }}
-                    >
-                      <IoCheckmark size={10} />
-                    </Button>
-                  </Flex>
+                  <SelectedForTable
+                    id={itm.id}
+                    item={String(itm["music_style.style_name"])}
+                    update_col="music_style_id"
+                    func={updateAlbum}
+                  />
                 </Td>
                 <Td width={"50%"}>
-                  <Flex alignItems={"center"} justifyContent={"space-between"}>
-                    <Editable defaultValue={itm.description}>
-                      <EditablePreview />
-                      <EditableTextarea
-                        onChange={(e) => {
-                          setDescription(e.target.value);
-                        }}
-                        width={"45em"}
-                        height={"10em"}
-                        onFocus={() => setActiveIndex(index)}
-                      />
-                    </Editable>
-                    <Button
-                      size={"xs"}
-                      p={0}
-                      bgColor={"lightgreen"}
-                      onClick={() => {
-                        updateAlbum(itm.id, { description });
-                        setDescription("");
-                      }}
-                      style={{
-                        display:
-                          description.length === 0 || activeIndex !== index
-                            ? "none"
-                            : "",
-                      }}
-                    >
-                      <IoCheckmark size={10} />
-                    </Button>
-                  </Flex>
+                  <FormForTable
+                    id={itm.id}
+                    item={String(itm.description)}
+                    update_col="description"
+                    func={updateAlbum}
+                  />
                 </Td>
               </Tr>
             ))}

@@ -77,6 +77,7 @@ export const CreatePR: React.FC<Props> = ({ isOpen, onClose }) => {
                 placeholder="Дата"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
+                type="date"
               />
             </FormControl>
 

@@ -11,6 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Select,
+  Textarea,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { useAppSelector } from "../../store/hooks";
@@ -83,7 +84,7 @@ export const CreateSong: React.FC<Props> = ({ isOpen, onClose }) => {
 
             <FormControl mt={4}>
               <FormLabel>Описание</FormLabel>
-              <Input
+              <Textarea
                 placeholder="Описание"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}

@@ -86,6 +86,7 @@ export const CreateConcerts: React.FC<Props> = ({ isOpen, onClose }) => {
                 placeholder="Дата"
                 value={concertDate}
                 onChange={(e) => setConcertDate(e.target.value)}
+                type="date"
               />
             </FormControl>
 

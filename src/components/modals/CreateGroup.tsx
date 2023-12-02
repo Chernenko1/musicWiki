@@ -34,9 +34,11 @@ export const CreateGroup: React.FC<Props> = ({ isOpen, onClose }) => {
   const [description, setDescription] = useState("");
   const [createYear, setCreateYear] = useState(0);
   const [musicStyle, setMusicStyl] = useState("");
+  const [image, setImage] = useState("");
   const [city, setCity] = useState("");
 
   const musicS = useAppSelector((state) => state.groups.musicStyleData);
+  console.log(image);
 
   const addGroup = () => {
     createGroup({
@@ -45,12 +47,14 @@ export const CreateGroup: React.FC<Props> = ({ isOpen, onClose }) => {
       description: description,
       music_style_id: +musicStyle,
       city_id: +city,
+      image,
     }).then((data) => {
       setGroupName("");
       setCity("");
       setCreateYear(0);
       setDescription("");
       setMusicStyle("");
+      setImage("");
       onClose();
     });
   };
@@ -83,6 +87,15 @@ export const CreateGroup: React.FC<Props> = ({ isOpen, onClose }) => {
                 placeholder="Год создания"
                 value={createYear}
                 onChange={(e) => setCreateYear(+e.target.value)}
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Изображение</FormLabel>
+              <Input
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
+                type="file"
               />
             </FormControl>
 

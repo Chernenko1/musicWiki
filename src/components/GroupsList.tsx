@@ -8,13 +8,6 @@ interface Props {
 
 export const GroupsList: React.FC<Props> = ({ onChildeClick }) => {
   const groups = useAppSelector((state) => state.groups.groupsData);
-  // const dispatch = useAppDispatch();
-
-  // console.log(groups);
-  // if (groups.length < 1) {
-  //   console.log(1);
-  //   return <Spinner />;
-  // }
 
   return (
     <div

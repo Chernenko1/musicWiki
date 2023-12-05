@@ -18,9 +18,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { createAlbums } from "../../http/albumAPI";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { fetchGroups } from "../../http/groupAPI";
-import { setGroups, setMusicStyle } from "../../store/slices/groupSlice";
-import { fetchMusicS } from "../../http/musicStyleAPI";
+import { setMusicStyle } from "../../store/slices/groupSlice";
 
 interface Props {
   isOpen: boolean;

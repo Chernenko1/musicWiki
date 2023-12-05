@@ -28,6 +28,7 @@ export const GroupItem: React.FC<Props> = ({
   id,
   title,
   describe,
+  image,
   onChildeClick,
 }) => {
   const handleClick = () => {
@@ -38,7 +39,7 @@ export const GroupItem: React.FC<Props> = ({
     <Card maxW="280px" bg="lightgray" key={id + id}>
       <CardBody>
         <Image
-          src="https://infosmi.net/wp-content/uploads/2022/02/96109038.jpg"
+          src={process.env.REACT_APP_API_URL + image}
           alt="Green double couch with wooden legs"
           borderRadius="lg"
         />

@@ -8,6 +8,7 @@ interface Props {
 
 export const GroupsList: React.FC<Props> = ({ onChildeClick }) => {
   const groups = useAppSelector((state) => state.groups.groupsData);
+  console.log(groups);
 
   return (
     <div
@@ -20,13 +21,13 @@ export const GroupsList: React.FC<Props> = ({ onChildeClick }) => {
         padding: 10,
       }}
     >
-      {groups.map((itm: any) => (
+      {groups.map((itm: Group) => (
         <div key={itm.id} style={{ display: "flex" }}>
           <GroupItem
             id={itm.id}
             describe={itm.description}
             title={itm.group_name}
-            image=""
+            image={itm["image.image_data"]}
             onChildeClick={onChildeClick}
           />
         </div>

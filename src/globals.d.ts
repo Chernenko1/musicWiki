@@ -89,4 +89,5 @@ declare interface Group {
   description: string;
   "city.city_name"?: string;
   "music_style.style_name"?: string;
+  "image.image_data": string;
 }

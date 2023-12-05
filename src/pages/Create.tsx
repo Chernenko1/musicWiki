@@ -3,11 +3,17 @@ import { useState, useEffect } from "react";
 import { CreateGroup } from "../components/modals/CreateGroup";
 import { fetchGroups } from "../http/groupAPI";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { setGroups, setMusicStyle } from "../store/slices/groupSlice";
+import {
+  setCities,
+  setGroups,
+  setMusicStyle,
+  setRoles,
+} from "../store/slices/groupSlice";
 import { fetchMusicS } from "../http/musicStyleAPI";
 import { CreateCity } from "../components/modals/CreateCity";
 import { CreateMusicStyle } from "../components/modals/CreateMStyle";
 import { CreateRole } from "../components/modals/CreateRole";
+import { fetchCities } from "../http/cityAPI";
 
 export const Create = () => {
   const [groupVisible, setGroupVisible] = useState(false);
@@ -21,6 +27,8 @@ export const Create = () => {
     fetchGroups().then((data) => {
       dispatch(setGroups(data.groups.rows));
     });
+    fetchMusicS().then((data) => dispatch(setMusicStyle(data.musicStyle)));
+    fetchCities().then((data) => dispatch(setCities(data)));
   }, []);
 
   return (

@@ -12,14 +12,15 @@ import {
   ModalOverlay,
   Radio,
   RadioGroup,
+  Select,
   Stack,
+  Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { createGroup } from "../../http/groupAPI";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { fetchMusicS } from "../../http/musicStyleAPI";
 import { setMusicStyle } from "../../store/slices/groupSlice";
+import { useAppSelector } from "../../store/hooks";
 
 interface Props {
   isOpen: boolean;
@@ -32,26 +33,25 @@ export const CreateGroup: React.FC<Props> = ({ isOpen, onClose }) => {
 
   const [groupName, setGroupName] = useState("");
   const [description, setDescription] = useState("");
-  const [createYear, setCreateYear] = useState(0);
+  const [createYear, setCreateYear] = useState("");
   const [musicStyle, setMusicStyl] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState<any>();
   const [city, setCity] = useState("");
 
-  const musicS = useAppSelector((state) => state.groups.musicStyleData);
-  console.log(image);
+  const { musicStyleData, cities } = useAppSelector((state) => state.groups);
 
   const addGroup = () => {
-    createGroup({
-      group_name: groupName,
-      creation_year: createYear,
-      description: description,
-      music_style_id: +musicStyle,
-      city_id: +city,
-      image,
-    }).then((data) => {
+    const formData = new FormData();
+    formData.append("group_name", groupName);
+    formData.append("creation_year", createYear);
+    formData.append("description", description);
+    formData.append("music_style_id", musicStyle);
+    formData.append("city_id", city);
+    formData.append("image", image);
+    createGroup(formData).then((data) => {
       setGroupName("");
       setCity("");
-      setCreateYear(0);
+      setCreateYear("");
       setDescription("");
       setMusicStyle("");
       setImage("");
@@ -86,44 +86,48 @@ export const CreateGroup: React.FC<Props> = ({ isOpen, onClose }) => {
               <Input
                 placeholder="Год создания"
                 value={createYear}
-                onChange={(e) => setCreateYear(+e.target.value)}
+                onChange={(e) => setCreateYear(e.target.value)}
               />
             </FormControl>
 
             <FormControl mt={4}>
               <FormLabel>Изображение</FormLabel>
               <Input
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setImage(e.target.files?.[0])
+                }
                 type="file"
               />
             </FormControl>
 
             <FormControl mt={4}>
               <FormLabel>Описание</FormLabel>
-              <Input
+              <Textarea
                 placeholder="Описание"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </FormControl>
 
-            <RadioGroup onChange={setMusicStyl} value={musicStyle} mt={4}>
-              <Stack direction="column">
-                {musicS.map((itm: any) => (
-                  <Radio value={String(itm.id)}>{itm.style_name}</Radio>
-                ))}
-              </Stack>
-            </RadioGroup>
+            <Select
+              placeholder="Стиль музыки"
+              mt={4}
+              onChange={(e) => setMusicStyl(e.target.value)}
+            >
+              {musicStyleData.map((itm: any) => (
+                <option value={itm.id}>{itm.style_name}</option>
+              ))}
+            </Select>
 
-            <RadioGroup onChange={setCity} value={city} mt={4}>
-              <Stack direction="column">
-                <Radio value="1">Лондон</Radio>
-                <Radio value="2">Ливерпуль</Radio>
-                <Radio value="3">Сан-Франциско</Radio>
-                <Radio value="4">Нью-Йорк</Radio>
-              </Stack>
-            </RadioGroup>
+            <Select
+              placeholder="Город"
+              mt={4}
+              onChange={(e) => setCity(e.target.value)}
+            >
+              {cities.map((itm: any) => (
+                <option value={itm.id}>{itm.city_name}</option>
+              ))}
+            </Select>
           </ModalBody>
 
           <ModalFooter>

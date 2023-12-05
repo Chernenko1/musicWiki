@@ -1,5 +1,5 @@
-import { Box, Flex, Grid, GridItem, Image, Text } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import { Box, Flex, Grid, GridItem, Image } from "@chakra-ui/react";
+import React from "react";
 import { FormForTable } from "../FormForTable";
 import { updateGroup } from "../../http/groupAPI";
 import { SelectedForTable } from "../SelectedForTable";
@@ -11,6 +11,8 @@ interface Props {
 
 export const GroupTable: React.FC<Props> = ({ arr }) => {
   const { cities, musicStyleData } = useAppSelector((state) => state.groups);
+  const url = process.env.REACT_APP_API_URL as string;
+  console.log(arr?.["image.image_data"]);
 
   if (arr !== undefined) {
     return (
@@ -24,7 +26,7 @@ export const GroupTable: React.FC<Props> = ({ arr }) => {
         >
           <GridItem rowSpan={5} colSpan={1}>
             <Image
-              src="https://infosmi.net/wp-content/uploads/2022/02/96109038.jpg"
+              src={url + arr["image.image_data"]}
               alt="Green double couch with wooden legs"
               borderRadius="lg"
             />
